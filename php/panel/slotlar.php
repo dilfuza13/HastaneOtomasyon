@@ -1,6 +1,17 @@
 <?PHP
 	require_once("inc_config.php");
+	$doctor = $_GET['doctor'] ?? null;
 
+	if(isset($_GET['doctor'])){
+		$dr = mysqli_fetch_assoc($mysqli->query("select * from doctor where id='$doctor'"));
+
+		if(!$dr){
+			$_SESSION['alert'] = "Doktor bulunamadı!";
+			header("Location:slotlar.php");
+			exit;
+		}
+
+	}
 ?>
 <html>
 	<head>
@@ -27,72 +38,179 @@
 
 	<div class="container">
 
-	<h2>SLOTLAR</h2>
+<?PHP
+$myQuery = "select d.*, s.specialization from doctor as d inner join specialization as s on s.id=d.specialization";
+$result = $mysqli->query($myQuery);
+?>
+<form action="slotlar.php" method="get">
+<select name="doctor" required>
+	<option value="">-DOKTOR SEÇİNİZ-</option>
+	<?PHP while($rs = mysqli_fetch_array($result)){?>
+	<option value="<?=$rs['id'];?>" <?=($rs['id']==$doctor)?"selected":"";?>><?=$rs['name'];?> - <?=$rs['specialization'];?></option>
+	<?PHP } ?>
+</select>
+<button type="submit">LİSTELE</button>
+</form>
+		
+	<hr>
+	
+<?PHP if($doctor){?>
+
+<?PHP
+	$slotlar = [];
+	$querySlotlar = $mysqli->query("select * from timeslot where doctor='$doctor'");
+	while($ss=mysqli_fetch_array($querySlotlar)){
+		$slotlar[$ss['timeslot']]=$ss['status'];
+	}
+
+	//print_r($slotlar); //tüm diziyi yazdırır
+
+?>
+
+
+
+	<h2>SLOTLAR - <?=$dr['name'];?></h2>
 	<hr>
 
-<table class="table table-sm table-striped  table-hover">
-<?PHP
-    //$tarih = new DateTime();
-
-    $tarih		= mktime(0, 0, 0, date("m",time()), date("d",time())-1, date("Y",time()));
-
-   // $tarih = mktime(0,0,0,$now->mont)
 
 
+	<table class="table table-sm table-striped  table-hover">
+	<?PHP
+		//$tarih = new DateTime();
 
-	//echo "Önümüzdeki 20 Gün:\n".$tarih;
+		$tarih = new DateTime( date("Y-m-d",time()));
 
-    for ($i = 0; $i <= 20; $i++) {
-		// Her döngüde tarihe 1 gün ekle
-		$tarih->modify('+1 day');
-		
-		// İstediğin formatta ekrana yazdır (Gün.Ay.Yıl)
-		$date = $tarih->format('d.m.Y');
-?>
-<tr>
-
-    <td><?=$date;?></td>
-    <td>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" checked disabled>
-            <label class="form-check-label" for="switchCheckChecked">10:00</label>
-        </div>
-    </td>
-    <td>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" disabled>
-            <label class="form-check-label" for="switchCheckChecked">11:00</label>
-        </div>
-    </td>
-    <td>
-        <form action="actions.php" method="post">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" onchange="this.form.submit();">
-                <label class="form-check-label" for="switchCheckChecked">12:00</label>
-            </div>
-            <input type="hidden" name="action" value="setslot">
-            <input type="hidden" name="slottime" value="<?=$date;?> 12:00">
-        </form>
-    </td>
-    <td>
-        <form action="actions.php" method="post">
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" checked onchange="this.form.submit();">
-            <label class="form-check-label" for="switchCheckChecked">13:00</label>
-        </div>
-         <input type="hidden" name="action" value="setslot">
-        <input type="hidden" name="slottime" value="<?=$date;?> 13:00">
-        </form>
-    </td>
-</tr>
+	// $tarih = mktime(0,0,0,$now->mont)
 
 
 
+		//echo "Önümüzdeki 20 Gün:\n".$tarih;
+
+		for ($i = 0; $i <= 10; $i++) {
+			// Her döngüde tarihe 1 gün ekle
+			$tarih->modify('+1 day');
+			
+			// İstediğin formatta ekrana yazdır (Gün.Ay.Yıl)
+			$date1 = $tarih->format('Y-m-d');
+			$date2 = $tarih->format('d.m.Y');
+
+
+			$slot09 = isset($slotlar[$date1." 09:00:00"])?($slotlar[$date1." 09:00:00"]==2?"checked disabled":($slotlar[$date1." 09:00:00"]==1?"checked":"")):"";
+			$slot10 = isset($slotlar[$date1." 10:00:00"])?($slotlar[$date1." 10:00:00"]==2?"checked disabled":($slotlar[$date1." 10:00:00"]==1?"checked":"")):"";
+			$slot11 = isset($slotlar[$date1." 11:00:00"])?($slotlar[$date1." 11:00:00"]==2?"checked disabled":($slotlar[$date1." 11:00:00"]==1?"checked":"")):"";
+			$slot12 = isset($slotlar[$date1." 12:00:00"])?($slotlar[$date1." 12:00:00"]==2?"checked disabled":($slotlar[$date1." 12:00:00"]==1?"checked":"")):"";
+			$slot13 = isset($slotlar[$date1." 13:00:00"])?($slotlar[$date1." 13:00:00"]==2?"checked disabled":($slotlar[$date1." 13:00:00"]==1?"checked":"")):"";
+			$slot14 = isset($slotlar[$date1." 14:00:00"])?($slotlar[$date1." 14:00:00"]==2?"checked disabled":($slotlar[$date1." 14:00:00"]==1?"checked":"")):"";
+			$slot15 = isset($slotlar[$date1." 15:00:00"])?($slotlar[$date1." 15:00:00"]==2?"checked disabled":($slotlar[$date1." 15:00:00"]==1?"checked":"")):"";
+			$slot16 = isset($slotlar[$date1." 16:00:00"])?($slotlar[$date1." 16:00:00"]==2?"checked disabled":($slotlar[$date1." 16:00:00"]==1?"checked":"")):"";
+			$slot17 = isset($slotlar[$date1." 17:00:00"])?($slotlar[$date1." 17:00:00"]==2?"checked disabled":($slotlar[$date1." 17:00:00"]==1?"checked":"")):"";
+
+			//$slot13 = isset($slotlar[$date1." 13:00:00"])?($slotlar[$date1." 13:00:00"]==0?"disabled":($slotlar[$date1." 13:00:00"]==1?"checked":"checked disabled")):"";
+
+
+			// hasta için $slot12 = isset($slotlar[$date1." 12:00:00"])?($slotlar[$date1." 12:00:00"]==0?"disabled":($slotlar[$date1." 12:00:00"]==1?"checked":"checked disabled")):"disabled";
+	?>
+	<tr>
+
+		<td><?=$date2;?></td>
+		<td>
+			<form action="actions.php" method="post">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot09;?>>
+					<label class="form-check-label" for="switchCheckChecked">09:00</label>
+				</div>
+				<input type="hidden" name="action" value="setslot">
+				<input type="hidden" name="doctor" value="<?=$doctor;?>">
+				<input type="hidden" name="timeslot" value="<?=$date1;?> 09:00:00">
+			</form>
+		</td>
+		<td>
+			<form action="actions.php" method="post">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot10;?>>
+					<label class="form-check-label" for="switchCheckChecked">10:00</label>
+				</div>
+				<input type="hidden" name="action" value="setslot">
+				<input type="hidden" name="doctor" value="<?=$doctor;?>">
+				<input type="hidden" name="timeslot" value="<?=$date1;?> 10:00:00">
+			</form>
+		</td>
+		<td>
+			<form action="actions.php" method="post">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot11;?>>
+					<label class="form-check-label" for="switchCheckChecked">11:00</label>
+				</div>
+				<input type="hidden" name="action" value="setslot">
+				<input type="hidden" name="doctor" value="<?=$doctor;?>">
+				<input type="hidden" name="timeslot" value="<?=$date1;?> 11:00:00">
+			</form>
+		</td>
+		<td>
+			<form action="actions.php" method="post">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot12;?>>
+					<label class="form-check-label" for="switchCheckChecked">12:00</label>
+				</div>
+				<input type="hidden" name="action" value="setslot">
+				<input type="hidden" name="doctor" value="<?=$doctor;?>">
+				<input type="hidden" name="timeslot" value="<?=$date1;?> 12:00:00">
+			</form>
+		</td>
+		<td>
+			<form action="actions.php" method="post">
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot14;?> >
+				<label class="form-check-label" for="switchCheckChecked">14:00</label>
+			</div>
+			<input type="hidden" name="action" value="setslot">
+			<input type="hidden" name="doctor" value="<?=$doctor;?>">
+			<input type="hidden" name="timeslot" value="<?=$date1;?> 14:00:00">
+			</form>
+		</td>
+		<td>
+			<form action="actions.php" method="post">
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot15;?> >
+				<label class="form-check-label" for="switchCheckChecked">15:00</label>
+			</div>
+			<input type="hidden" name="action" value="setslot">
+			<input type="hidden" name="doctor" value="<?=$doctor;?>">
+			<input type="hidden" name="timeslot" value="<?=$date1;?> 15:00:00">
+			</form>
+		</td>
+		<td>
+			<form action="actions.php" method="post">
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot16;?> >
+				<label class="form-check-label" for="switchCheckChecked">16:00</label>
+			</div>
+			<input type="hidden" name="action" value="setslot">
+			<input type="hidden" name="doctor" value="<?=$doctor;?>">
+			<input type="hidden" name="timeslot" value="<?=$date1;?> 16:00:00">
+			</form>
+		</td>
+		<td>
+			<form action="actions.php" method="post">
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot17;?> >
+				<label class="form-check-label" for="switchCheckChecked">17:00</label>
+			</div>
+			<input type="hidden" name="action" value="setslot">
+			<input type="hidden" name="doctor" value="<?=$doctor;?>">
+			<input type="hidden" name="timeslot" value="<?=$date1;?> 17:00:00">
+			</form>
+		</td>
+	</tr>
+
+
+
+
+	<?PHP } ?>
+
+	</table>
 
 <?PHP } ?>
-
-</table>
-
 
 <div>
 	</body>

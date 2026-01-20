@@ -12,6 +12,59 @@
 	$name = "Dilfuza";
 
 
+
+
+
+	if($action=="setslot"){
+
+		$doctor		= $_POST['doctor'];
+		$timeslot	= $_POST['timeslot'];
+		//$timeslot	= "2026-02-01 13:00";
+		$slotstatus	= $_POST['slotstatus'] ?? 0;
+
+		echo $timeslot.'>'.$slotstatus;
+
+		$slot = mysqli_fetch_assoc($mysqli->query("select id, status from timeslot where doctor='$doctor' and timeslot='$timeslot'"));
+		if($slot){
+			echo 'slot var';
+			if($slot['status']==2){echo 'Slot dolu, iptal edemezsiniz, hasta randevusunu iptal ettikten sonra iptal edebilirsiniz'; exit;}
+
+			if($slot['status']!=$slotstatus){
+	
+				$mysqli->query("update timeslot set status=$slotstatus where id='{$slot['id']}'");
+
+				if($mysqli -> affected_rows<1){
+					echo 'Slot güncellenemedi!'; exit;
+				}
+
+				$_SESSION['alert'] = "Slot Güncellendi";
+
+			}else{
+
+				$_SESSION['alert'] = "Slot durumu zaten aynı";
+			}
+
+		}else{
+			echo 'slot yok';
+
+			$addslot = $mysqli->query("insert into timeslot(doctor, timeslot, status) values('$doctor','$timeslot','$slotstatus')");
+			if(!$addslot){echo 'Slot eklenemedi!'; exit;}
+
+			$_SESSION['alert'] = "Slot Güncellendi";	
+		}
+		
+		
+			
+		header("Location:slotlar.php?doctor=$doctor");
+		exit;
+		
+
+	}
+
+
+
+
+
 	if($action=='adduser'){
 
 		$name = $_POST['name'];
@@ -200,18 +253,6 @@
 
 		header("Location:doktor.php?id=$id");
 		exit;
-	}
-
-
-	if($action=="setslot"){
-
-		$slotstatus = $_POST['slotstatus'] ?? false;
-		$slottime = $_POST['slottime'];
-
-		echo $slottime.'>'.$slotstatus;
-
-		exit;
-
 	}
 
 
