@@ -1,0 +1,178 @@
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Hastane Otomasyon</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+	</head>
+	<body>
+
+
+
+	<header class="p-3 text-bg-dark">
+		<div class="container">
+			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+					<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+						<use xlink:href="#bootstrap"></use></svg>
+				</a>
+				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li><a href="uzmanliklar.php" class="nav-link px-2 text-white">Uzmanlıklar</a></li>
+					<li><a href="doktorlar.php" class="nav-link px-2 text-white">Doktorlar</a></li>
+					<li><a href="hastalar.php" class="nav-link px-2 text-white">Hastalar</a></li>
+				</ul>
+				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+					<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+				</form>
+				<div class="text-end">
+					<button type="button" class="btn btn-outline-light me-2">Login</button>
+					<button type="button" class="btn btn-warning">Sign-up</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<hr>
+
+	
+	<h2>DOKTORLAR</h2>
+	<hr>
+
+	<form action="actions.php" method="post">
+		<input type="text" name="doctorname" id="doctorname" require placeholder="Doktor ismi..." ><br>
+		<input type="mail" name="doctormail" id="doctormail" require placeholder="Doktor e-posta..." ><br>
+		<input type="password" name="password" id="password" require placeholder="Doktor parola..." ><br>
+		<input type="phone" name="phone" id="phone" require placeholder="Doktor telefon..." ><br>
+		<input type="text" name="description" id="description" require placeholder="Doktor hakkında..." ><br>
+		<button type="submit">EKLE</button>
+		<input type="hidden" name="action" value="adddoctor">
+	</form>
+
+	<hr>
+
+	<table class="table table-striped  table-hover">
+		<thead>
+			<tr>
+			<th scope="col">#</th>
+			<th scope="col">Doctor Name</th>
+			<th scope="col">Mail</th>
+			<th scope="col">Phone</th>
+			<th scope="col">Description</th>
+			<th scope="col">Status</th>
+			<th scope="col">Date</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr>
+				<th scope="row">1</th>
+				<td><a href="doktor.php?id=1">Volkan Sezer</a></td>
+				<td>volkan@sezer.com</td>
+				<td>1234567</td>
+				<td>açıklama</td>
+				<td>1</td>
+				<td>2025-12-27 16:22:41</td>
+			</tr>
+			<tr>
+				<th scope="row">2</th>
+				<td><a href="doktor.php?id=2">Malahat Karimova</a></td>
+				<td>malahat@karimova.com</td>
+				<td>1234567</td>
+				<td>çok iyi kalpli bir kadın</td>
+				<td>1</td>
+				<td>2025-12-27 16:31:16</td>
+			</tr>
+			<tr>
+				<th scope="row">3</th>
+				<td><a href="doktor.php?id=3">Bahram Karimova</a></td>
+				<td>bahram@karimova.com</td>
+				<td>05335335456789</td>
+				<td>açıklama</td>
+				<td>1</td>
+				<td>2025-12-27 16:32:51</td>
+			</tr>
+			<tr>
+				<th scope="row">4</th>
+				<td><a href="doktor.php?id=4">Dilfuza Karimova</a></td>
+				<td>dilfuza@karimova.com</td>
+				<td>1234567</td>
+				<td>çok iyi bir doktor</td>
+				<td>1</td>
+				<td>2025-12-27 16:35:57</td>
+			</tr>
+			<tr>
+				<th scope="row">5</th>
+				<td><a href="doktor.php?id=5">daha eski doktor</a></td>
+				<td>doktor@doktor</td>
+				<td>12345678</td>
+				<td>234234234</td>
+				<td>1</td>
+				<td>2025-12-27 16:37:54</td>
+			</tr>
+			<tr>
+				<th scope="row">11</th>
+				<td><a href="doktor.php?id=11">bide</a></td>
+				<td>bide</td>
+				<td>123</td>
+				<td>123</td>
+				<td>1</td>
+				<td>2025-12-27 19:17:56</td>
+			</tr>
+			<tr>
+				<th scope="row">7</th>
+				<td><a href="doktor.php?id=7">test2</a></td>
+				<td>test2</td>
+				<td>test1</td>
+				<td>test1</td>
+				<td>1</td>
+				<td>2025-12-27 16:53:05</td>
+			</tr>
+			<tr>
+				<th scope="row">8</th>
+				<td><a href="doktor.php?id=8">test3</a></td>
+				<td>test3</td>
+				<td>test1</td>
+				<td>test1</td>
+				<td>1</td>
+				<td>2025-12-27 16:57:02</td>
+			</tr>
+			<tr>
+				<th scope="row">9</th>
+				<td><a href="doktor.php?id=9">my doctor</a></td>
+				<td>my@doctor.com</td>
+				<td>123456</td>
+				<td></td>
+				<td>1</td>
+				<td>2025-12-27 18:12:21</td>
+			</tr>
+			<tr>
+				<th scope="row">12</th>
+				<td><a href="doktor.php?id=12">Hemen Deneyelim</a></td>
+				<td>hemen</td>
+				<td>asd</td>
+				<td>asd</td>
+				<td>1</td>
+				<td>2025-12-27 19:22:21</td>
+			</tr>
+			<tr>
+				<th scope="row">13</th>
+				<td><a href="doktor.php?id=13">sorun değil</a></td>
+				<td>sorun</td>
+				<td>asd</td>
+				<td>asd</td>
+				<td>1</td>
+				<td>2025-12-27 19:23:16</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+
+	</body>
+</html>

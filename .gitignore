@@ -1,0 +1,12 @@
+
+# Klasörleri ignore eder
+vendor/
+mysql/
+
+# Logları ignore eder, important.log olanı hariç tutar
+*.zip
+*.log
+
+error_log
+
+!important.log

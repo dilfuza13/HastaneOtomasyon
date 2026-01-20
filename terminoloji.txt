@@ -1,0 +1,25 @@
+phpMyAdmin -> MySQL'i yöneten yaygın web tabanlı sistem (SQL Server Managment'ın alternatifi)
+
+
+??
+yetkilendirmeleri anlat
+db bağlantı konusunu öğren
+docker'ı anlat, xampp anlat, ftp aç oraya yükle, ftp programı öner
+
+
+DOCKER
+- node.js 
+- php Apache, xampp
+- sql MsSQL, MySQL, phpMyAdmin,
+- python 
+
+|--- PHP
+|--- MySQL
+|--- phpMyAdmin
+
+
+
+ayağa kaldırma
+# Terminal Ctrl+"
+docker-compose up -d #compose dosyasını çalıştırır
+cls #komuları siler
