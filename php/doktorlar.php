@@ -99,9 +99,9 @@
 ===================== -->
 <div class="container">
   <div class="hero text-center">
-    <h1 class="fw-bold">DOKTOLRAR</h1>
+    <h1 class="fw-bold">DOKTORLAR</h1>
     <p class="lead mt-3">Uzman doktor kadromuz ile yanınızdayız</p>
-    <button class="btn btn-light btn-lg mt-3">Randevu Al</button>
+   
   </div>
 </div>
 
@@ -117,7 +117,9 @@
 
         <div class="col-md-6">
           <div class="card doctor-card shadow-sm">
-            <img src="Nova Care_files/doktorresimleri/istockphoto-2158610739-1024x1024.jpg" class="card-img-top img-fluid">
+          <img src="Hastaneresim/doctor-6864474_1280.jpg" class="img-fluid">
+
+
             <div class="card-body">
               <h5 class="card-title">Dr. Ahmet Yılmaz</h5>
               <p class="text-muted">Kardiyoloji Uzmanı</p>
@@ -128,7 +130,7 @@
 
         <div class="col-md-6">
           <div class="card doctor-card shadow-sm">
-            <img src="Nova Care_files/doktorresimleri/istockphoto-1633320190-1024x1024 (1).jpg" class="card-img-top">
+               <img src="Hastaneresim/istockphoto-1633320190-1024x1024 (1).jpg" class="img-fluid">
             <div class="card-body">
               <h5 class="card-title">Dr. Ayşe Demir</h5>
               <p class="text-muted">Dahiliye Uzmanı</p>
@@ -140,33 +142,6 @@
       </div>
     </div>
 
-    <!-- Form -->
-    <div class="col-lg-4">
-      <div class="appointment-form">
-        <h5 class="mb-3">Randevu Oluştur</h5>
-
-        <div class="form-floating mb-3">
-          <input class="form-control" placeholder="Ad Soyad">
-          <label>Ad Soyad</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <input type="tel" class="form-control" placeholder="Telefon">
-          <label>Telefon</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <select class="form-select">
-            <option>Kardiyoloji</option>
-            <option>Dahiliye</option>
-            <option>Ortopedi</option>
-          </select>
-          <label>Uzmanlık</label>
-        </div>
-
-        <button class="btn btn-primary w-100">Randevu Al</button>
-      </div>
-    </div>
 
   </div>
 </div>

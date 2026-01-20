@@ -97,7 +97,37 @@
         <label class="form-label">Tarih</label>
         <input type="date" class="form-control mb-3">
 
-        <label class="form-label">Saat</label>
+        <label class="form-label">Saat Yeni</label>
+        <div class="" >
+        <input type="radio" class="btn-check btn-yeni" name="options" id="option1" autocomplete="off" checked >
+        <label class="btn btn-secondary" for="option1">09:00</label>
+
+        <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" disabled >
+        <label class="btn btn-secondary" for="option2">10:00</label>
+
+        <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
+        <label class="btn btn-secondary" for="option3">11:00</label>
+
+        <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" >
+        <label class="btn btn-secondary" for="option4">12:00</label>
+
+        <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" >
+        <label class="btn btn-secondary" for="option4">14:00</label>
+
+        <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" >
+        <label class="btn btn-secondary" for="option4">15:00</label>
+
+        <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" >
+        <label class="btn btn-secondary" for="option4">16:00</label>
+
+        <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" >
+        <label class="btn btn-secondary" for="option4">17:00</label>
+
+
+        
+        </div>
+
+        <label class="form-label">Saat Eski</label>
         <div class="times" id="times"></div>
 
         <button class="btn btn-success w-100 mt-4" id="confirm" disabled>
@@ -109,8 +139,8 @@
 </div>
 
 <script>
-  const hours = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
-  const unsetHours = ['10:00','14:00','16:00'];
+  const hours = ['08:00','09:00','10:00','11:00', ,'14:00','15:00','16:00',];
+  const unsetHours = ['08:00','12:00','13:00'];
 
   const container = document.getElementById('times');
   const confirmBtn = document.getElementById('confirm');
