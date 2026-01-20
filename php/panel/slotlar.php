@@ -1,7 +1,7 @@
 <?PHP
 	require_once("inc_config.php");
-?>
 
+?>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -24,6 +24,8 @@
 	<?PHP if(isset($_SESSION['alert'])){?>
 	<div class="alert alert-success" role="alert"> <?=$_SESSION['alert'];?> </div>
 	<?PHP unset($_SESSION['alert']); } ?>
+
+	<div class="container">
 
 	<h2>SLOTLAR</h2>
 	<hr>
@@ -92,6 +94,8 @@
 </table>
 
 
-
+<div>
 	</body>
 </html>
+
+

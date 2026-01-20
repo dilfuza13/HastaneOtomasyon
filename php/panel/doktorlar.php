@@ -25,18 +25,38 @@
 	<div class="alert alert-success" role="alert"> <?=$_SESSION['alert'];?> </div>
 	<?PHP unset($_SESSION['alert']); } ?>
 
+	<div class="container">
+
 	<h2>DOKTORLAR</h2>
 	<hr>
 
-	<form action="actions.php" method="post">
-		<input type="text" name="doctorname" id="doctorname" require placeholder="Doktor ismi..." ><br>
-		<input type="mail" name="doctormail" id="doctormail" require placeholder="Doktor e-posta..." ><br>
-		<input type="password" name="password" id="password" require placeholder="Doktor parola..." ><br>
-		<input type="phone" name="phone" id="phone" require placeholder="Doktor telefon..." ><br>
-		<input type="text" name="description" id="description" require placeholder="Doktor hakkında..." ><br>
-		<button type="submit">EKLE</button>
-		<input type="hidden" name="action" value="adddoctor">
-	</form>
+		<form action="actions.php" method="post">
+			<div class="row">
+
+				<div class="col col-md-2">
+					<input type="text" name="name" id="name" placeholder="Doktor ismi..." class="form-control">
+				</div>
+				<div class="col col-md-2">
+					<select name="specialization" required class="form-control">
+						<option value="">-SEÇİNİZ-</option>
+						<?PHP $subSql = $mysqli->query("select * from specialization order by specialization asc"); while($ss=mysqli_fetch_array($subSql)){ ?>
+						<option value="<?=$ss['id'];?>"><?=$ss['specialization'];?></option>
+						<?PHP } ?>
+					</select>
+				</div>
+				<div class="col col-md-4">
+					<input type="text" name="description" id="description" require placeholder="Doktor hakkında..." class="form-control" required>
+				</div>
+				<div class="col col-md-2">
+					<input type="phone" name="phone" id="phone" require placeholder="Doktor telefon..." class="form-control" required>
+				</div>
+				<div class="col col-md-2">
+					<button type="submit" class="btn btn-success">EKLE</button>
+				</div>
+				<input type="hidden" name="action" value="adddoctor">
+
+			</div>
+			</form>
 
 	<hr>
 
@@ -44,17 +64,17 @@
 		<thead>
 			<tr>
 			<th scope="col">#</th>
-			<th scope="col">Doctor Name</th>
-			<th scope="col">Mail</th>
-			<th scope="col">Phone</th>
-			<th scope="col">Description</th>
-			<th scope="col">Status</th>
+			<th scope="col">Doktor Adı</th>
+			<th scope="col">Uzmanlığı</th>			
+			<th scope="col">Hakkında</th>
+			<th scope="col">Teleefon</th>
+			<th scope="col">Durum</th>
 			<th scope="col">Date</th>
 			</tr>
 		</thead>
 		<tbody>
 <?PHP
-$myQuery = "select id, name, mail, phone, description, status, createdtime from doctor";
+$myQuery = "select d.*, s.specialization from doctor as d inner join specialization as s on s.id=d.specialization";
 $result = $mysqli->query($myQuery);
 ?>
 
@@ -62,10 +82,10 @@ $result = $mysqli->query($myQuery);
 			<tr>
 				<th scope="row"><?=$rs['id'];?></th>
 				<td><a href="doktor.php?id=<?=$rs['id'];?>"><?PHP echo $rs['name'];?></a></td>
-				<td><?=$rs['mail'];?></td>
-				<td><?=$rs['phone'];?></td>
+				<td><?=$rs['specialization'];?></td>
 				<td><?=$rs['description'];?></td>
-				<td><?=$rs['status'];?></td>
+				<td><?=$rs['phone'];?></td>
+				<td><?=$rs['status']?"AKTİF":"PASİF";?></td>
 				<td><?=$rs['createdtime'];?></td>
 			</tr>
 <?PHP } ?>
@@ -74,6 +94,6 @@ $result = $mysqli->query($myQuery);
 	</table>
 
 
-
+<div>
 	</body>
 </html>

@@ -1,7 +1,9 @@
 <?PHP
 	require_once("inc_config.php");
-?>
+	$name = "Dilfuza";
 
+	if(!isset($_SESSION['user']) || !$_SESSION['user']['login']){header("Location:login.php"); exit;}
+?>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -14,22 +16,35 @@
 
 	</head>
 	<body>
-	
-		
-		<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
-		<?PHP include("inc_header.php");?>
 
+	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
+	<?PHP include("inc_header.php");?>
 
 		<div class="container">
+			<h2>PERSONEL</h2>
 
-			<h2>UZMANLIKLAR</h2>
 			<hr>
-
 			<form action="actions.php" method="post">
-				<input type="text" name="specialization" placeholder="Uzmanlık..." required>
-				<input type="text" name="description" placeholder="Açıklama..." required>
-				<button type="submit">EKLE</button>
-				<input type="hidden" name="action" value="addspecialization">
+			<div class="row">
+
+				<div class="col col-md-2">
+					<input type="text" name="name" placeholder="Personel..." required class="form-control">
+				</div>
+				<div class="col col-md-2">
+					<input type="text" name="username" placeholder="Kullanıcı adı..." required class="form-control">
+				</div>
+				<div class="col col-md-2">
+					<input type="password" name="password" placeholder="Parola..." required class="form-control">
+				</div>
+				<div class="col col-md-2">
+					<input type="password" name="validate" placeholder="Parola tekrar..." required class="form-control">
+				</div>
+				<div class="col col-md-2">
+					<button type="submit" class="btn btn-success">EKLE</button>
+				</div>
+				<input type="hidden" name="action" value="adduser">
+
+			</div>
 			</form>
 
 			<hr>
@@ -39,8 +54,8 @@
 				<thead>
 					<tr>
 					<th scope="col">#</th>
-					<th scope="col">Uzmanlık</th>
-					<th scope="col">Açıklama</th>
+					<th scope="col">Personel</th>
+					<th scope="col">Kullancı Adı</th>
 					<th scope="col">Durum</th>
 					<th></th>
 					<th scope="col">Date</th>
@@ -48,7 +63,7 @@
 				</thead>
 				<tbody>
 		<?PHP
-		$myQuery = "select * from specialization";
+		$myQuery = "select * from user";
 		$result = $mysqli->query($myQuery);
 		?>
 
@@ -57,23 +72,21 @@
 				<form action="actions.php" method="post">
 					<tr>
 						<th scope="row"><?=$rs['id'];?></th>
-						<td><input type="text" name="specialization" placeholder="Uzmanlık..." maxlength="50" required value="<?=$rs['specialization'];?>" class="form-control"></td>
-						<td><input type="text" name="description" placeholder="Açıklama..." maxlength="200" required value="<?=$rs['description'];?>" class="form-control"></td>
+						<td><input type="text" name="name" placeholder="Personel..." maxlength="50" required value="<?=$rs['name'];?>" class="form-control"></td>
+						<td><input type="text" name="username" placeholder="Kullanıcı adı..." maxlength="50" required value="<?=$rs['username'];?>" class="form-control"></td>
 						<td><select name="status" required class="form-control"><option value="0">PASİF</option><option value="1" <?=($rs['status'])?"selected":"";?>>AKTİF</option></select></td>
 						<td><button type="submit" class="btn btn-success">KAYDET</button></td>
 						<td><?=$rs['createdtime'];?></td>
 					</tr>
-					<input type="hidden" name="action" value="editspecialization">
-  					<input type="hidden" name="id" value="<?=$rs['id'];?>">
+					<input type="hidden" name="action" value="edituser">
+					<input type="hidden" name="id" value="<?=$rs['id'];?>">
 				</form>
 		<?PHP } ?>
 
 				</tbody>
 			</table>
 
-			
-		</div>
 
-	
+		</div>
 	</body>
 </html>

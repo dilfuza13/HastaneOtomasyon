@@ -1,67 +1,29 @@
-<style>
-	/* =====================
-       NAVBAR
-    ===================== */
-    .navbar {
-      padding: 22px 0;
-    }
-
-    .navbar-brand {
-      color: #0d6efd !important;
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .nav-link {
-      font-weight: 500;
-      position: relative;
-    }
-
-    .nav-link:hover {
-      color: #0d6efd !important;
-    }
-
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: #0d6efd;
-      transition: .3s;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-</style>
-<nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
-  <div class="container">
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-between" id="mainNavbar">
-
-      <ul class="navbar-nav mx-auto gap-4">
-        <li class="nav-item"><a class="nav-link" href="index.html">Anasayfa</a></li>
-        <li class="nav-item"><a class="nav-link" href="uzmanliklar">Uzmanlıklar</a></li>
-        <li class="nav-item"><a class="nav-link" href="randevu.html">Randevu</a></li>
-      </ul>
-
-      <a class="navbar-brand position-absolute start-50 translate-middle-x" href="#">
-        Nova Care
-      </a>
-
-      <ul class="navbar-nav mx-auto gap-4">
-        <li class="nav-item"><a class="nav-link" href="doktor.html">Doktorlar</a></li>
-        <li class="nav-item"><a class="nav-link" href="haberler.html">Haberler</a></li>
-        <li class="nav-item"><a class="nav-link" href="iletisim.html">İletişim</a></li>
-      </ul>
-
-    </div>
-  </div>
-</nav>
+	<header class="p-3 text-bg-dark">
+		<div class="container">
+			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+					<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+						<use xlink:href="#bootstrap"></use></svg>
+				</a>
+				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li><a href="randevular.php" class="nav-link px-2 text-white">Randevular</a></li>	
+					<li><a href="hastalar.php" class="nav-link px-2 text-white">Hastalar</a></li>
+					<li><a href="slotlar.php" class="nav-link px-2 text-white">Slotlar</a></li>
+					<li><a href="doktorlar.php" class="nav-link px-2 text-white">Doktorlar</a></li>
+					<li><a href="uzmanliklar.php" class="nav-link px-2 text-white">Uzmanlıklar</a></li>
+					
+					<li><a href="personel.php" class="nav-link px-2 text-white">Personel</a></li>
+					<li><a href="logout.php" class="nav-link px-2 text-white">Çıkış</a></li>
+				</ul>
+				<!--
+				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+					<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+				</form>
+				<div class="text-end">
+					<button type="button" class="btn btn-outline-light me-2">Login</button>
+					<button type="button" class="btn btn-warning">Sign-up</button>
+				</div>
+				-->
+			</div>
+		</div>
+	</header>

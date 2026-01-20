@@ -10,14 +10,14 @@
 		<title><?=_SiteName;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="author" content="Volkan Sezer" />
-		<link rel="shortcut icon" href="exchange-logo.png" />
+		<link rel="shortcut icon" href="login-logo.png" />
 		<link href="login.css" rel="stylesheet" />
 	</head>
 	<body>
 		<div id="loading"><div class="loader"></div></div>
 
 		<form action="logincheck.php" method="post" class="form-signin text-center">
-			<img class="mb-4" src="exchange-logo.jpeg" alt="" width="250" height="250">
+			<img class="mb-4" src="login-logo.png" alt="" width="250" height="250">
 			<h1 class="h3 mb-3 font-weight-normal"><?=_SiteName;?></h1>
 			<div>
 				<?PHP if(isset($_SESSION['alert'])){?>

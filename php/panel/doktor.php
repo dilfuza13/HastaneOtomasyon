@@ -1,22 +1,22 @@
 <?PHP
-	require_once("config.php");
+	require_once("inc_config.php");
+
+	$id = $_GET['id'];
 
 
- $id = $_GET['id'];
+	$myQuery = "SELECT * FROM `doctor` WHERE id='$id'";
 
+	$result = $mysqli->query($myQuery);
 
- $myQuery = "SELECT * FROM `doctor` WHERE id='$id'";
-
- $result = $mysqli->query($myQuery);
-
- $doctor = mysqli_fetch_assoc($result);
-
- 
+	$doctor = mysqli_fetch_assoc($result);
+	
+	if(!$doctor){
+		$_SESSION['alert'] = "Doktor bulunamadı!";
+		header("Location:doktorlar.php");
+		exit;
+	}
 
 ?>
-
-
-
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -31,83 +31,89 @@
 	<body>
 
 
-
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
 	<?PHP include("inc_header.php");?>
 
-    <hr>
+	<hr>
 
-    <?PHP if(isset($_SESSION['alert'])){?>
+	<?PHP if(isset($_SESSION['alert'])){?>
 	<div class="alert alert-success" role="alert"> <?=$_SESSION['alert'];?> </div>
 	<?PHP unset($_SESSION['alert']); } ?>
 
-    <hr>
+	<div class="container">
 
-<style>
-    body{padding-top:30px;}
+	<h2>Doktor: <?=$doctor['name'];?></h2>
+	<hr>
 
-.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+		<form action="actions.php" method="post">
+			<div class="row">
 
-small {
-display: block;
-line-height: 1.428571429;
-color: #999;
-}
-</style>
+				<div class="col col-md-2">
+					<label for="name">Doktor adı...</label>
+					<input type="text" name="name" id="name" class="form-control" value="<?=$doctor['name'];?>" required>
+				</div>
 
+				<div class="col col-md-2">
+					<label for="specialization">Uzmanlığı...</label>
+					<select name="specialization" required class="form-control">
+						<option value="">-SEÇİNİZ-</option>
+						<?PHP $subSql = $mysqli->query("select * from specialization order by specialization asc"); while($ss=mysqli_fetch_array($subSql)){ ?>
+						<option value="<?=$ss['id'];?>" <?=($ss['id']==$doctor['specialization'])?"selected":"";?>><?=$ss['specialization'];?></option>
+						<?PHP } ?>
+					</select>
+				</div>
 
+				<div class="col col-md-">
+					<label for="description">Doktor hakkında...</label>
+					<input type="text" name="description" id="description" class="form-control" value="<?=$doctor['description'];?>" required>
+				</div>
 
-    <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
- 
-                    <div class="col-sm-6 col-md-8">
-                        <h4><?=$doctor['name'];?></h4>
-                        <small><cite title="San Francisco, USA"><?=$doctor['description'];?> <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i><?=$doctor['mail'];?>
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="tel:<?=$doctor['phone'];?>"><?=$doctor['phone'];?></a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
-                        <!-- Split button -->
+				<div class="col col-md-">
+					<label for="phone">Telefon...</label>
+					<input type="text" name="phone" id="phone" class="form-control" value="<?=$doctor['phone'];?>" required>
+				</div>
 
-                        <form action="actions.php" method="post" onsubmit="return confirm('Doktor <?=$doctor['name'];?> kaydını silmek istediğinize emin misiniz?');">
-                         <div class="btn-group">
-                            <button type="submit" class="btn btn-danger">SİL</button>                           
-                        </div>
-                        <input type="hidden" name="action" value="deletedoctor">
-                        <input type="hidden" name="id" value="<?= $doctor['id'];?>">
-                        </form>
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+				<div class="col col-md-">
+					<label for="status">Durum...</label>
+					<select name="status" required class="form-control">
+						<option value="0">PASİF</option>
+						<option value="1" <?=$doctor['status']?"selected":"";?>>AKTİF</option>
+					</select>
+				</div>
+				
+				<div class="col col-md-2">
+					<label for="status">Düzenle...</label>
+					<button type="submit" class="btn btn-success">KAYDET</button>
+				</div>
+				<input type="hidden" name="action" value="editdoctor">
+				<input type="hidden" name="id" value="<?=$doctor['id'];?>">
 
+			</div>
+			</form>
 
-<hr>
-
-
-
-<form action="actions.php" method="post">
-    <input type="text" name="doctorname" id="doctorname" require placeholder="Doktor ismi..." value="<?=$doctor['name'];?>" ><br>
-    <input type="mail" name="doctormail" id="doctormail" require placeholder="Doktor e-posta..." value="<?=$doctor['mail'];?>" ><br>
-    <input type="password" name="password" id="password" require placeholder="Doktor parola..." value="<?=$doctor['password'];?>" ><br> <!-- parola hassasiyetini şimdilik görmezden geliyoruz  -->
-    <input type="phone" name="phone" id="phone" require placeholder="Doktor telefon..." value="<?=$doctor['phone'];?>" ><br>
-    <input type="text" name="description" id="description" require placeholder="Doktor hakkında..." value="<?=$doctor['description'];?>" ><br>
-    <button type="submit" class="btn btn-primary">DÜZENLE</button>                    
-    <input type="hidden" name="action" value="editdoctor">
-    <input type="hidden" name="id" value="<?= $doctor['id'];?>">
-</form>
+	<hr>
 
 
+	<div class="card" style="width: 18rem;">
+		<img src="../uploads/<?=$doctor['profilephoto'] ?? "placeholder.png";?>" class="card-img-top" width="400">
+		<div class="card-body">
+			<h5 class="card-title">Profil Fotoğrafı</h5>
+			<form action="actions.php" method="post" enctype="multipart/form-data">
+				
+				<input type="file" name="fileToUpload" id="fileToUpload">
+				<button class="btn btn-primary">YÜKLE</button>
+				
+				<input type="hidden" name="action" value="editdoctorprofilephoto">
+				<input type="hidden" name="id" value="<?=$doctor['id'];?>">
+
+			</form>
+		</div>
+	</div>
 
 
+	<hr>
+
+
+<div>
 	</body>
 </html>

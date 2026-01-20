@@ -12,28 +12,117 @@
 	$name = "Dilfuza";
 
 
+	if($action=='adduser'){
+
+		$name = $_POST['name'];
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$validate = $_POST['validate'];
+
+		$result = $mysqli->query("INSERT INTO `user` (`name`, `username`, `password`, `status`)
+						VALUES ('$name', '$username', '$password', '1');");
+
+		if($result){
+			$_SESSION['alert'] = "Personel <b>" . $name . "</b> başarıyla eklendi";
+			header("Location:personel.php");
+			exit;
+		}else{
+			echo 'Bir hata oluştu! '.$mysql->error;
+			exit;
+		}
+	}
+
+
+
+
+	if($action=="edituser"){
+
+		$id = $_POST['id'];
+		$name = $_POST['name'];
+		$username = $_POST['username'];
+		$status = $_POST['status'];		
+
+		$myQuery = "UPDATE `user` SET
+						`name` = '$name',
+						`username` = '$username',
+						`status` = '$status'
+					WHERE `id` = '$id'";
+
+		$result = $mysqli->query($myQuery);
+
+		$_SESSION['alert'] = "Personel başarıyla düzenlendi";
+
+		header("Location:personel.php");
+		exit;
+	}
+
+
+
+
+	if($action=='addspecialization'){
+
+		$specialization = $_POST['specialization'];
+		$description = $_POST['description'];
+
+		$result = $mysqli->query("INSERT INTO `specialization` (`specialization`, `description`, `status`)
+						VALUES ('$specialization', '$description', '1');");
+
+		if($result){
+			$_SESSION['alert'] = "Uzmanlık <b>" . $specialization . "</b> başarıyla eklendi";
+			header("Location:uzmanliklar.php");
+			exit;
+		}else{
+			echo 'Bir hata oluştu! '.$mysql->error;
+			exit;
+		}
+	}
+
+
+
+
+	if($action=="editspecialization"){
+
+		$id = $_POST['id'];
+		$specialization = $_POST['specialization'];
+		$description = $_POST['description'];
+		$status = $_POST['status'];
+
+		$myQuery = "UPDATE `specialization` SET
+						`specialization` = '$specialization',
+						`description` = '$description',
+						`status` = '$status'
+					WHERE `id` = '$id'";
+
+		$result = $mysqli->query($myQuery);
+
+		$_SESSION['alert'] = "Uzmanlık başarıyla düzenlendi";
+
+		header("Location:uzmanliklar.php");
+		exit;
+	}
+
+
 
 	//Doktor ekleme işlemi bu bölümde yapılacak
 	if($action=='adddoctor'){
 		echo 'doktor eklenecek<br>';
 
-		$doctorname = p('doctorname'); //$_POST['doctorname'];
-		$doctormail = g('doctormail'); //$_POST['doctormail'];
-		$password = $_POST['password'];
-		$phone = $_POST['phone'];
+		$name = p('name'); //$_POST['doctorname'];
+		$specialization = $_POST['specialization'];
 		$description = $_POST['description'];
+		$phone = $_POST['phone'];
 
-		echo $doctorname.' > '.$doctormail.' > '.$password.' > '.$phone.' > '.$description;
+		echo $name.' > '.$phone.' > '.$description;
 
-		$result = $mysqli->query("INSERT INTO `doctor` (`name`, `mail`, `password`, `phone`, `description`, `status`)
-						VALUES ('$doctorname', '$doctormail', '$password', '$phone', '$description', '1');");
+		$result = $mysqli->query("INSERT INTO `doctor` (`name`, `specialization`, `description`, `phone`, `status`)
+						VALUES ('$name', '$specialization', '$description', '$phone', '1');");
 
 		if($result){
 			//echo 'Tebrikler eklendi';
 
 			$id = $mysqli->insert_id;
 
-			$_SESSION['alert'] = "Doktor <b>" . $doctorname . "</b> başarıyla eklendi";
+			$_SESSION['alert'] = "Doktor <b>" . $name . "</b> başarıyla eklendi";
 
 			header("Location:doktor.php?id=$id");
 			exit;
@@ -41,7 +130,6 @@
 			echo 'Bir hata oluştu! '.$mysql->error;
 			exit;
 		}
-
 	}
 
 
@@ -50,20 +138,20 @@
 		echo 'doktor düzenlenecek<hr>';
 
 		$id = $_POST['id'];
-		$doctorname = $_POST['doctorname'];
-		$doctormail = $_POST['doctormail'];
-		$password = $_POST['password'];
-		$phone = $_POST['phone'];
+		$name = $_POST['name'];
+		$specialization = $_POST['specialization'];
 		$description = $_POST['description'];
+		$phone = $_POST['phone'];
+		$status = $_POST['status'];
 
-		echo $doctorname.' > '.$doctormail.' > '.$password.' > '.$phone.' > '.$description;
+		echo $name.' > '.$phone.' > '.$description;
 
 		$myQuery = "UPDATE `doctor` SET
-						`name` = '$doctorname',
-						`mail` = '$doctormail',
-						`password` = '$password',
+						`name` = '$name',
+						`specialization` = '$specialization',
+						`description` = '$description',
 						`phone` = '$phone',
-						`description` = '$description'
+						`status` = '$status'
 					WHERE `id` = '$id'";
 
 		$result = $mysqli->query($myQuery);
@@ -72,7 +160,6 @@
 
 		header("Location:doktor.php?id=$id");
 		exit;
-
 	}
 
 
@@ -89,7 +176,30 @@
 
 		header("Location:doktorlar.php");
 		exit;
+	}
 
+
+	if($action=="editdoctorprofilephoto"){
+
+		$id = $_POST['id'];
+
+		$target_dir = "../uploads/";
+		$base_name = basename($_FILES["fileToUpload"]["name"]);
+		$target_file = $target_dir . $base_name;
+		$uploadOk = 1;
+		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+
+
+		if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+			echo "Profil fotoğrafı güncellenemedi!"; exit;
+		}
+
+		$myQuery = "UPDATE `doctor` SET `profilephoto` = '$base_name' WHERE `id` = '$id'";
+		$result = $mysqli->query($myQuery);
+
+		header("Location:doktor.php?id=$id");
+		exit;
 	}
 
 

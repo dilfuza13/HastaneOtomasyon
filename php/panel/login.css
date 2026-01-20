@@ -9,7 +9,7 @@ body {
     height: 100%;
     font-family: 'Numans', sans-serif;
 
-    background: url(exchange-bg.jpg)no-repeat bottom center fixed;
+    background: url(login-bg.jpg)no-repeat bottom center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

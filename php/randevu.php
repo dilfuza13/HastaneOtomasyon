@@ -2,63 +2,19 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <title>Nova Care</title>
+  <title>Nova Care | Randevu Sistemi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap 5.3 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    /* =====================
-       GENEL
-    ===================== */
     body {
       padding-top: 110px;
       background-color: #f8f9fa;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* =====================
-       NAVBAR
-    ===================== */
-    .navbar {
-      padding: 22px 0;
-    }
-
-    .navbar-brand {
-      color: #0d6efd !important;
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .nav-link {
-      font-weight: 500;
-      position: relative;
-    }
-
-    .nav-link:hover {
-      color: #0d6efd !important;
-    }
-
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: #0d6efd;
-      transition: .3s;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    /* =====================
-       HERO
-    ===================== */
     .hero {
       background: linear-gradient(90deg, #0d6efd, #4dabf7);
       color: white;
@@ -67,109 +23,119 @@
       margin-bottom: 60px;
     }
 
-    /* =====================
-       DOCTOR CARD
-    ===================== */
-    .doctor-card img {
-      height: 240px;
-      object-fit: cover;
-    }
-
-    /* =====================
-       FORM
-    ===================== */
-    .appointment-form {
+    .panel {
       background: white;
       padding: 28px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,.08);
     }
+
+    .times {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .time-btn {
+      padding: 12px 0;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      background: #e3f2fd;
+      transition: .2s;
+    }
+
+    .time-btn:hover { background: #bbdefb; }
+
+    .time-btn.unset {
+      background: #e0e0e0;
+      color: #888;
+      cursor: not-allowed;
+    }
+
+    .time-btn.selected {
+      background: #0d6efd;
+      color: #fff;
+    }
   </style>
 </head>
-
 <body>
 
-<!-- =====================
-     NAVBAR (AYNI)
-===================== -->
-<?PHP include('inc_header.php');?>
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-primary" href="#">Nova Care</a>
+  </div>
+</nav>
 
-<!-- =====================
-     HERO
-===================== -->
 <div class="container">
   <div class="hero text-center">
-    <h1 class="fw-bold">RANDEVU</h1>
+    <h1 class="fw-bold">RANDEVU SİSTEMİ</h1>
     <p class="lead mt-3">Uzman doktor kadromuz ile yanınızdayız</p>
-    <button class="btn btn-light btn-lg mt-3">Randevu Al</button>
   </div>
 </div>
 
-<!-- =====================
-     DOCTORS + FORM
-===================== -->
 <div class="container">
-  <div class="row g-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <div class="panel">
+        <h3 class="text-center mb-4 fw-bold">Hastane Randevu Alma</h3>
 
-    <!-- Doktorlar -->
-    <div class="col-lg-8">
-      <div class="row g-4">
+        <label class="form-label">Poliklinik</label>
+        <select class="form-select mb-3">
+          <option>Dahiliye</option>
+          <option>Kardiyoloji</option>
+          <option>Cildiye</option>
+        </select>
 
-        <div class="col-md-6">
-          <div class="card doctor-card shadow-sm">
-            <img src="Nova Care_files/doktorresimleri/istockphoto-2158610739-1024x1024.jpg" class="card-img-top img-fluid">
-            <div class="card-body">
-              <h5 class="card-title">Dr. Ahmet Yılmaz</h5>
-              <p class="text-muted">Kardiyoloji Uzmanı</p>
-              <button class="btn btn-primary btn-sm">Detay</button>
-            </div>
-          </div>
-        </div>
+        <label class="form-label">Doktor</label>
+        <select class="form-select mb-3">
+          <option>Dr. Ahmet Yılmaz</option>
+          <option>Dr. Ayşe Demir</option>
+        </select>
 
-        <div class="col-md-6">
-          <div class="card doctor-card shadow-sm">
-            <img src="Nova Care_files/doktorresimleri/istockphoto-1633320190-1024x1024 (1).jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Dr. Ayşe Demir</h5>
-              <p class="text-muted">Dahiliye Uzmanı</p>
-              <button class="btn btn-primary btn-sm">Detay</button>
-            </div>
-          </div>
-        </div>
+        <label class="form-label">Tarih</label>
+        <input type="date" class="form-control mb-3">
 
+        <label class="form-label">Saat</label>
+        <div class="times" id="times"></div>
+
+        <button class="btn btn-success w-100 mt-4" id="confirm" disabled>
+          Randevuyu Onayla
+        </button>
       </div>
     </div>
-
-    <!-- Form -->
-    <div class="col-lg-4">
-      <div class="appointment-form">
-        <h5 class="mb-3">Randevu Oluştur</h5>
-
-        <div class="form-floating mb-3">
-          <input class="form-control" placeholder="Ad Soyad">
-          <label>Ad Soyad</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <input type="tel" class="form-control" placeholder="Telefon">
-          <label>Telefon</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <select class="form-select">
-            <option>Kardiyoloji</option>
-            <option>Dahiliye</option>
-            <option>Ortopedi</option>
-          </select>
-          <label>Uzmanlık</label>
-        </div>
-
-        <button class="btn btn-primary w-100">Randevu Al</button>
-      </div>
-    </div>
-
   </div>
 </div>
+
+<script>
+  const hours = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+  const unsetHours = ['10:00','14:00','16:00'];
+
+  const container = document.getElementById('times');
+  const confirmBtn = document.getElementById('confirm');
+
+  hours.forEach(hour => {
+    const btn = document.createElement('button');
+    btn.type = "button";
+    btn.className = 'time-btn';
+    btn.innerText = hour;
+
+    if (unsetHours.includes(hour)) {
+      btn.classList.add('unset');
+      btn.innerText = hour + ' (Dolu)';
+      btn.disabled = true;
+    }
+
+    btn.onclick = () => {
+      document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      confirmBtn.disabled = false;
+    };
+
+    container.appendChild(btn);
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
