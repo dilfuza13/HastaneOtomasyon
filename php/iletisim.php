@@ -99,7 +99,7 @@
 ===================== -->
 <div class="container">
   <div class="hero text-center">
-    <h1 class="fw-bold">UZMANLIKLAR</h1>
+    <h1 class="fw-bold">İLETİŞİM</h1>
     <p class="lead mt-3">Uzman doktor kadromuz ile yanınızdayız</p>
     <button class="btn btn-light btn-lg mt-3">Randevu Al</button>
   </div>

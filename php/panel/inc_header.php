@@ -47,9 +47,9 @@
     <div class="collapse navbar-collapse justify-content-between" id="mainNavbar">
 
       <ul class="navbar-nav mx-auto gap-4">
-        <li class="nav-item"><a class="nav-link" href="index.php">Anasayfa</a></li>
-        <li class="nav-item"><a class="nav-link" href="uzmanliklar.php">Uzmanlıklar</a></li>
-        <li class="nav-item"><a class="nav-link" href="randevu.php">Randevu</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html">Anasayfa</a></li>
+        <li class="nav-item"><a class="nav-link" href="uzmanliklar">Uzmanlıklar</a></li>
+        <li class="nav-item"><a class="nav-link" href="randevu.html">Randevu</a></li>
       </ul>
 
       <a class="navbar-brand position-absolute start-50 translate-middle-x" href="#">
@@ -57,9 +57,9 @@
       </a>
 
       <ul class="navbar-nav mx-auto gap-4">
-        <li class="nav-item"><a class="nav-link" href="doktorlar.php">Doktorlar</a></li>
-        <li class="nav-item"><a class="nav-link" href="haberler.php">Haberler</a></li>
-        <li class="nav-item"><a class="nav-link" href="iletisim.php">İletişim</a></li>
+        <li class="nav-item"><a class="nav-link" href="doktor.html">Doktorlar</a></li>
+        <li class="nav-item"><a class="nav-link" href="haberler.html">Haberler</a></li>
+        <li class="nav-item"><a class="nav-link" href="iletisim.html">İletişim</a></li>
       </ul>
 
     </div>
