@@ -25,7 +25,7 @@
 	}
 
 	//önce sadece username'i kontrol ettiriyoruz
-	$user = mysqli_fetch_assoc($mysqli->query("select * from personel where username='$username'"));
+	$user = mysqli_fetch_assoc($mysqli->query("select * from user where username='$username'"));
 	if(!$user){ //$user oluşmamışsa (!)
 		$_SESSION['alert']['warning'] = 'KULLANICI ADI VEYA PAROLA HATALI !1';
 		header("Location:login.php");
@@ -50,8 +50,7 @@
 		"login"		=> true,
 		"id"		=> $user['id'],
 		"name"		=> $user['name'],
-		"username"	=> $user['username'],
-		"lastlogin"	=> $user['lastlogin']
+		"username"	=> $user['username']
 	];
 
 	header("Location:index.php");

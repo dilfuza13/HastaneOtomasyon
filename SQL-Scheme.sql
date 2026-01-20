@@ -1,15 +1,16 @@
 CREATE TABLE IF NOT EXISTS `user` ( -- eğer daha önce tanımlanmamışsa "doctor" tablosunu oluşturuyoruz
 	`id`			INT NOT NULL PRIMARY KEY AUTO_INCREMENT, -- id'ler otomatik artacak
 	`name`			VARCHAR(50) NOT NULL, -- ALT + 9 + 6	
-	`mail`			VARCHAR(100) NOT NULL,
+	`username`		VARCHAR(50) NOT NULL,
 	`password`		VARCHAR(50) NOT NULL,
-	`status`		TINYINT NOT NULL,
+	`status`		TINYINT NOT NULL, -- 0 Pasif, 1 Aktif
 	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(), -- kayıt ne zaman eklenirse otomatik tarih girecek
-	UNIQUE (`mail`) -- aynı mail ile tekrar kayıt girilmesin
+	UNIQUE (`username`) -- aynı username ile tekrar kayıt girilmesin
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `user` (`name`, `mail`, `password`, `status`)
-VALUES ('Dilfuza Karimova', 'dilfuza@karimova.com', '12345', '1');
+INSERT INTO `user` (`name`, `username`, `password`, `status`)
+	VALUES 	('Admin', 'admin', '12345', 1),
+			('Dilfuza Karimova', 'dilfuza', '12345', '1');
 
 
 CREATE TABLE IF NOT EXISTS `specialization` (
@@ -29,12 +30,12 @@ CREATE TABLE IF NOT EXISTS `doctor` ( -- eğer daha önce tanımlanmamışsa "do
 	`description`	VARCHAR(200) NULL,
 	`status`		TINYINT NOT NULL,
 	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(), -- kayıt ne zaman eklenirse otomatik tarih girecek
-	UNIQUE (`name`), -- aynı mail ile tekrar kayıt girilmesin
+	UNIQUE (`name`) -- aynı mail ile tekrar kayıt girilmesin
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-INSERT INTO `doctor` (`name`, `mail`, `password`, `phone`, `description`, `status`)
-VALUES ('Dilfuza Karimova', 'dilfuza@karimova.com', '12345', '1234567', 'açıklama', '1');
+INSERT INTO `doctor` (`name`, `phone`, `description`, `status`)
+	VALUES ('Dilfuza Karimova', '1234567', 'açıklama', '1');
 
 
 CREATE TABLE IF NOT EXISTS `patient` (
@@ -58,5 +59,5 @@ CREATE TABLE IF NOT EXISTS `timeslots` (
 	`slottime`		DATETIME NOT NULL,
 	`status`		TINYINT NOT NULL, -- 0-slot açmadı, 1-slot açtı, 2-slot dolu
 	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-	UNIQUE (`doctor`,`time`)
+	UNIQUE (`doctor`,`slottime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

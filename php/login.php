@@ -19,6 +19,11 @@
 		<form action="logincheck.php" method="post" class="form-signin text-center">
 			<img class="mb-4" src="exchange-logo.jpeg" alt="" width="250" height="250">
 			<h1 class="h3 mb-3 font-weight-normal"><?=_SiteName;?></h1>
+			<div>
+				<?PHP if(isset($_SESSION['alert'])){?>
+				<div class="alert alert-danger" role="alert"><?=$_SESSION['alert']['warning'];?></div>
+				<?PHP unset($_SESSION['alert']); }?>
+			</div>
 
 			<label for="username" class="sr-only">Kullanıcı adı</label>
 			<input type="text" id="username" name="username" class="form-control" placeholder="Kullanıcı adı..." autocomplete="off" autofocus>
