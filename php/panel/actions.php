@@ -2,7 +2,7 @@
 
 	//ayarları yaptığımız config dosyasını çağırıyoruz
 	//require_once "1 kere çağır" demek, birden fazla çağırırsak ilk olanı işleme alacak
-	require_once("inc_config.php");
+	require_once("../inc_config.php");
 
 
 	$action = $_POST['action'];

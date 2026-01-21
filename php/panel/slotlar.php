@@ -1,5 +1,5 @@
 <?PHP
-	require_once("inc_config.php");
+	require_once("../inc_config.php");
 	$doctor = $_GET['doctor'] ?? null;
 
 	if(isset($_GET['doctor'])){
@@ -116,8 +116,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot09;?>>
-					<label class="form-check-label" for="switchCheckChecked">09:00</label>
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>09" value="1" onchange="this.form.submit();" <?=$slot09;?>>
+					<label class="form-check-label" for="s<?=$date1;?>09">09:00</label>
 				</div>
 				<input type="hidden" name="action" value="setslot">
 				<input type="hidden" name="doctor" value="<?=$doctor;?>">
@@ -127,8 +127,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot10;?>>
-					<label class="form-check-label" for="switchCheckChecked">10:00</label>
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>10" value="1" onchange="this.form.submit();" <?=$slot10;?>>
+					<label class="form-check-label" for="s<?=$date1;?>10">10:00</label>
 				</div>
 				<input type="hidden" name="action" value="setslot">
 				<input type="hidden" name="doctor" value="<?=$doctor;?>">
@@ -138,8 +138,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot11;?>>
-					<label class="form-check-label" for="switchCheckChecked">11:00</label>
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>11" value="1" onchange="this.form.submit();" <?=$slot11;?>>
+					<label class="form-check-label" for="s<?=$date1;?>11">11:00</label>
 				</div>
 				<input type="hidden" name="action" value="setslot">
 				<input type="hidden" name="doctor" value="<?=$doctor;?>">
@@ -149,8 +149,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot12;?>>
-					<label class="form-check-label" for="switchCheckChecked">12:00</label>
+					<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>12" value="1" onchange="this.form.submit();" <?=$slot12;?>>
+					<label class="form-check-label" for="s<?=$date1;?>12">12:00</label>
 				</div>
 				<input type="hidden" name="action" value="setslot">
 				<input type="hidden" name="doctor" value="<?=$doctor;?>">
@@ -160,8 +160,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot14;?> >
-				<label class="form-check-label" for="switchCheckChecked">14:00</label>
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>14" value="1" onchange="this.form.submit();" <?=$slot14;?> >
+				<label class="form-check-label" for="s<?=$date1;?>14">14:00</label>
 			</div>
 			<input type="hidden" name="action" value="setslot">
 			<input type="hidden" name="doctor" value="<?=$doctor;?>">
@@ -171,8 +171,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot15;?> >
-				<label class="form-check-label" for="switchCheckChecked">15:00</label>
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>15" value="1" onchange="this.form.submit();" <?=$slot15;?> >
+				<label class="form-check-label" for="s<?=$date1;?>15">15:00</label>
 			</div>
 			<input type="hidden" name="action" value="setslot">
 			<input type="hidden" name="doctor" value="<?=$doctor;?>">
@@ -182,8 +182,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot16;?> >
-				<label class="form-check-label" for="switchCheckChecked">16:00</label>
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>16" value="1" onchange="this.form.submit();" <?=$slot16;?> >
+				<label class="form-check-label" for="s<?=$date1;?>16">16:00</label>
 			</div>
 			<input type="hidden" name="action" value="setslot">
 			<input type="hidden" name="doctor" value="<?=$doctor;?>">
@@ -193,8 +193,8 @@ $result = $mysqli->query($myQuery);
 		<td>
 			<form action="actions.php" method="post">
 			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="switchCheckChecked" value="1" onchange="this.form.submit();" <?=$slot17;?> >
-				<label class="form-check-label" for="switchCheckChecked">17:00</label>
+				<input class="form-check-input" type="checkbox" name="slotstatus" role="switch" id="s<?=$date1;?>17" value="1" onchange="this.form.submit();" <?=$slot17;?> >
+				<label class="form-check-label" for="s<?=$date1;?>17">17:00</label>
 			</div>
 			<input type="hidden" name="action" value="setslot">
 			<input type="hidden" name="doctor" value="<?=$doctor;?>">

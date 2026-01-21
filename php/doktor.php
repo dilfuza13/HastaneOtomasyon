@@ -1,7 +1,4 @@
-
-
-
-
+<?PHP include('inc_config.php');?>
 <html>
 	<head>
 		<meta charset="utf-8" />

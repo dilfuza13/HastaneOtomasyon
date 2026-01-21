@@ -1,3 +1,4 @@
+<?PHP include('inc_config.php');?>
 <!doctype html>
 <html lang="tr">
 <head>
@@ -115,17 +116,23 @@
     <div class="col-lg-8">
       <div class="row g-4">
 
+<?PHP
+  $sql = $mysqli->query("select d.*, s.specialization from doctor as d inner join specialization as s on s.id=d.specialization order by id desc limit 2");
+  while($dr = mysqli_fetch_array($sql)){
+?>
+
         <div class="col-md-6">
           <div class="card doctor-card shadow-sm">
-            <img src="Nova Care_files/doktorresimleri/istockphoto-2158610739-1024x1024.jpg" class="card-img-top img-fluid">
+            <img src="uploads/<?=$dr['profilephoto'];?>" class="card-img-top img-fluid">
             <div class="card-body">
-              <h5 class="card-title">Dr. Ahmet Yılmaz</h5>
-              <p class="text-muted">Kardiyoloji Uzmanı</p>
+              <h5 class="card-title"><?=$dr['name'];?></h5>
+              <p class="text-muted"><?=$dr['specialization'];?>ı</p>
               <button class="btn btn-primary btn-sm">Detay</button>
             </div>
           </div>
         </div>
-
+<?PHP } ?>
+<!--
         <div class="col-md-6">
           <div class="card doctor-card shadow-sm">
             <img src="Nova Care_files/doktorresimleri/istockphoto-1633320190-1024x1024 (1).jpg" class="card-img-top">
@@ -136,7 +143,7 @@
             </div>
           </div>
         </div>
-
+-->
       </div>
     </div>
 

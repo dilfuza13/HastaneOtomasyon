@@ -1,7 +1,7 @@
 <?PHP
 
 	//önemli ayarları getirdik (veritabanı, configuration, functions)
-	require_once("inc_config.php");
+	require_once("../inc_config.php");
 
 	//kullanıcı giriş yapmışsa, doğrudan anasayfaya yönlendiriyoruz
 	if(isset($_SESSION['user']) && $_SESSION['user']['login']==true){

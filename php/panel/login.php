@@ -1,5 +1,5 @@
 <?PHP
-	require_once("inc_config.php");
+	require_once("../inc_config.php");
 
 	if(isset($_SESSION['user']) && isset($_SESSION['user']['id']) && isset($_SESSION['user']['login'])){$_SESSION['alert'] = ['primary' => 'Giriş yapılmış...']; header("Location:index.php"); exit;}
 ?>
@@ -9,7 +9,6 @@
 		<meta charset="utf-8">
 		<title><?=_SiteName;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="author" content="Volkan Sezer" />
 		<link rel="shortcut icon" href="login-logo.png" />
 		<link href="login.css" rel="stylesheet" />
 	</head>
@@ -44,4 +43,3 @@
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script>
 	</body>
 </html>
-<!-- © Volkan Sezer -->

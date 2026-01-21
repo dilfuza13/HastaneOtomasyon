@@ -57,7 +57,7 @@ INSERT INTO `doctor` (`name`, `specialization`, `description`, `phone`, `status`
 CREATE TABLE IF NOT EXISTS `patient` (
 	`id`			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	`name`			VARCHAR(50) NOT NULL,
-	`mail`			VARCHAR(100) NOT NULL,
+	`email`			VARCHAR(100) NOT NULL,
 	`password`		VARCHAR(50) NOT NULL,
 	`phone`			VARCHAR(50) NULL,
 	`birthyear`		INT NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
 	`relative`		VARCHAR(100) NULL,
 	`history`		VARCHAR(500) NULL,
 	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-	UNIQUE (`mail`)
+	UNIQUE (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

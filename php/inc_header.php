@@ -48,17 +48,20 @@
 
       <ul class="navbar-nav mx-auto gap-4">
         <li class="nav-item"><a class="nav-link" href="index.php">Anasayfa</a></li>
-        <li class="nav-item"><a class="nav-link" href="uzmanliklar.php">Uzmanlıklar</a></li>
-        <li class="nav-item"><a class="nav-link" href="randevu.php">Randevu</a></li>
+        <li class="nav-item"><a class="nav-link" href="uzmanliklar.php">Klinikleriniz</a></li>
+        <li class="nav-item"><a class="nav-link" href="doktorlar.php">Doktorlarımız</a></li>
       </ul>
 
-      <a class="navbar-brand position-absolute start-50 translate-middle-x" href="#">
-        Nova Care
-      </a>
+      <a class="navbar-brand position-absolute start-50 translate-middle-x" href="#">Nova Care</a>
 
       <ul class="navbar-nav mx-auto gap-4">
-        <li class="nav-item"><a class="nav-link" href="doktorlar.php">Doktorlar</a></li>
-        <li class="nav-item"><a class="nav-link" href="haberler.php">Haberler</a></li>
+        <li class="nav-item"><a class="nav-link" href="randevu.php">Randevu</a></li>
+        <?PHP if(isset($_SESSION['patient'])){?>
+        <li class="nav-item"><a class="nav-link" href="hesabim.php">Hesabım</a></li>
+        <li class="nav-item"><a class="nav-link" href="cikis.php">Çıkış</a></li>
+        <?PHP }else{ ?>
+        <li class="nav-item"><a class="nav-link" href="uyeislemleri.php">Üye İşlemleri</a></li>
+        <?PHP } ?>
         <li class="nav-item"><a class="nav-link" href="iletisim.php">İletişim</a></li>
       </ul>
 

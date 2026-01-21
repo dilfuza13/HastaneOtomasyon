@@ -1,5 +1,5 @@
 <?PHP
-	require_once("inc_config.php");
+	require_once("../inc_config.php");
 	$name = "Dilfuza";
 
 	if(!isset($_SESSION['user']) || !$_SESSION['user']['login']){header("Location:login.php"); exit;}
