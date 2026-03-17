@@ -95,7 +95,7 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
                             echo "<option value='{$ds['id']}' $selected>Dr. {$ds['name']}</option>";
                         } ?>
                     <?PHP } else { ?>
-                        <option value="">Önce poliklinik seçin</option>
+                        <option value="">Lütfen Önce poliklinik seçin</option>
                     <?PHP } ?>
                 </select>
             </div>
@@ -197,5 +197,6 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- CopyRight Dilfuza Hanım -->
 </body>
 </html>
