@@ -48,7 +48,7 @@
 
       <ul class="navbar-nav mx-auto gap-4">
         <li class="nav-item"><a class="nav-link" href="index.php">Anasayfa</a></li>
-        <li class="nav-item"><a class="nav-link" href="uzmanliklar.php">Klinikleriniz</a></li>
+        <li class="nav-item"><a class="nav-link" href="uzmanliklar.php">Hakkımızda</a></li>
         <li class="nav-item"><a class="nav-link" href="doktorlar.php">Doktorlarımız</a></li>
       </ul>
 

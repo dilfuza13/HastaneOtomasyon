@@ -6,7 +6,6 @@
   <title>Nova Care</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap 5.3 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -63,121 +62,30 @@
     .hero {
       background: linear-gradient(90deg, #0d6efd, #4dabf7);
       color: white;
-      padding: 80px 0;
+      padding: 60px 0; /* 100'ü 60'a düşürdük, böylece kutu daraldı ve şıklaştı */
       border-radius: 18px;
-      margin-bottom: 60px;
-    }
-
-    /* =====================
-       DOCTOR CARD
-    ===================== */
-    .doctor-card img {
-      height: 240px;
-      object-fit: cover;
-    }
-
-    /* =====================
-       FORM
-    ===================== */
-    .appointment-form {
-      background: white;
-      padding: 28px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      margin-bottom: 40px; /* Alttaki boşluğu da biraz azalttık */
     }
   </style>
 </head>
 
 <body>
 
-<!-- =====================
-     NAVBAR (AYNI)
-===================== -->
 <?PHP include('inc_header.php');?>
 
-<!-- =====================
-     HERO
-===================== -->
 <div class="container">
   <div class="hero text-center">
-    <h1 class="fw-bold">Sağlığınız Bizim Önceliğimiz</h1>
-    <p class="lead mt-3">Uzman doktor kadromuz ile yanınızdayız</p>
-    <button class="btn btn-light btn-lg mt-3">Randevu Al</button>
+    <h1 class="fw-bold display-4">Nova Care Sağlık Hizmetleri</h1>
+    <p class="lead mt-3">Sağlığınız Bizim Önceliğimiz</p>
+    <p class="mt-4"> Uzman Kadromuzla Her Zaman Yanınızdayız.</p>
   </div>
 </div>
 
-<!-- =====================
-     DOCTORS + FORM
-===================== -->
-<div class="container">
-  <div class="row g-4">
 
-    <!-- Doktorlar -->
-    <div class="col-lg-8">
-      <div class="row g-4">
-
-<?PHP
-  $sql = $mysqli->query("select d.*, s.specialization from doctor as d inner join specialization as s on s.id=d.specialization order by id desc limit 2");
-  while($dr = mysqli_fetch_array($sql)){
-?>
-
-        <div class="col-md-6">
-          <div class="card doctor-card shadow-sm">
-            <img src="uploads/<?=$dr['profilephoto'];?>" class="card-img-top img-fluid">
-            <div class="card-body">
-              <h5 class="card-title"><?=$dr['name'];?></h5>
-              <p class="text-muted"><?=$dr['specialization'];?>ı</p>
-              <button class="btn btn-primary btn-sm">Detay</button>
-            </div>
-          </div>
-        </div>
-<?PHP } ?>
-<!--
-        <div class="col-md-6">
-          <div class="card doctor-card shadow-sm">
-            <img src="Nova Care_files/doktorresimleri/istockphoto-1633320190-1024x1024 (1).jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Dr. Ayşe Demir</h5>
-              <p class="text-muted">Dahiliye Uzmanı</p>
-              <button class="btn btn-primary btn-sm">Detay</button>
-            </div>
-          </div>
-        </div>
--->
-      </div>
-    </div>
-
-    <!-- Form -->
-    <div class="col-lg-4">
-      <div class="appointment-form">
-        <h5 class="mb-3">Randevu Oluştur</h5>
-
-        <div class="form-floating mb-3">
-          <input class="form-control" placeholder="Ad Soyad">
-          <label>Ad Soyad</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <input type="tel" class="form-control" placeholder="Telefon">
-          <label>Telefon</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <select class="form-select">
-            <option>Kardiyoloji</option>
-            <option>Dahiliye</option>
-            <option>Ortopedi</option>
-          </select>
-          <label>Uzmanlık</label>
-        </div>
-
-        <button class="btn btn-primary w-100">Randevu Al</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
