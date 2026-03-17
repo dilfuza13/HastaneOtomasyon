@@ -27,7 +27,13 @@
 
   <div class="row g-4 mb-5">
     <?PHP
-    $sorgu = $mysqli->query("SELECT d.*, s.specialization as uzmanlik FROM doctor d LEFT JOIN specialization s ON d.specialization = s.id WHERE d.status = 1 ORDER BY d.id DESC");
+    $query = "SELECT d.*, s.specialization as uzmanlik
+                FROM doctor d 
+                LEFT JOIN specialization s ON d.specialization = s.id 
+                WHERE d.status = 1
+                ORDER BY d.id DESC";
+    
+    $sorgu = $mysqli->query($query);
     while($row = $sorgu->fetch_assoc()){
         // Resim yolu tamiri:
         $resim_yolu = (!empty($row['image'])) ? "uploads/".$row['image']."?v=".time() : "https://via.placeholder.com/400x500";
@@ -38,7 +44,9 @@
         <div class="card-body p-4">
           <span class="spec-badge"><?=htmlspecialchars($row['uzmanlik']);?></span>
           <h4 class="fw-bold mb-3">Dr. <?=htmlspecialchars($row['name']);?></h4>
-          <div class="d-grid"><a href="#" class="btn btn-primary rounded-pill fw-bold">Online Randevu</a></div>
+          <div class="d-grid"><a href="hesabim.php?klinik=<?=$row['specialization'];?>&doktor=<?=$row['id'];?>" target="_blank" class="btn btn-primary rounded-pill fw-bold">Online Randevu</a></div>
+          <br>
+          <div class="d-grid"><a href="gorusal.php?klinik=<?=$row['specialization'];?>&doktor=<?=$row['id'];?>" target="_blank" class="btn btn-success rounded-pill fw-bold">Doktordan Görüş Al</a></div>
         </div>
       </div>
     </div>

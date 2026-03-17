@@ -1,3 +1,10 @@
+
+> üYELİK işLEMLERİ
+> HESABIM
+  - RAndevular, Sonuçlar, Talepler, PRofil, Çıkış
+
+
+
 phpMyAdmin -> MySQL'i yöneten yaygın web tabanlı sistem (SQL Server Managment'ın alternatifi)
 
 

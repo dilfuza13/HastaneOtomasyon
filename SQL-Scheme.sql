@@ -90,3 +90,12 @@ CREATE TABLE IF NOT EXISTS `appointment` (
 	UNIQUE (`patient`, `timeslot`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+CREATE TABLE IF NOT EXISTS `requests` (
+	`id`			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`doctor`		INT NOT NULL,
+	`patient`		INT NOT NULL,
+	`story`			TEXT NOT NULL,
+	`status`		TINYINT NOT NULL, -- 0-oluşturuldu, 1-cevaplandı, 2-bekliyor
+	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
