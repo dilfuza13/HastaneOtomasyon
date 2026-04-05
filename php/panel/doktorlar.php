@@ -1,52 +1,8 @@
 <?PHP
-ob_start();
-// Oturum zaten başlatılmışsa tekrar başlatma hatasını önlemek için kontrol ekledik
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+
 require_once("../inc_config.php");
 
-// 1. DOKTOR EKLEME
-if(isset($_POST['ekle'])){
-    $name = mysqli_real_escape_string($mysqli, $_POST['name']);
-    $spec = intval($_POST['specialization']);
-    $desc = mysqli_real_escape_string($mysqli, $_POST['description']);
-    $phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
-    
-    $mysqli->query("INSERT INTO doctor (name, specialization, description, phone, status) VALUES ('$name', '$spec', '$desc', '$phone', 1)");
-    $yeni_id = $mysqli->insert_id;
 
-    if(isset($_FILES['profilephoto']) && $_FILES['profilephoto']['error'] == 0){
-        $yeni_ad = "dr_" . $yeni_id . "_" . time() . ".jpg";
-        if(move_uploaded_file($_FILES['profilephoto']['tmp_name'], "../uploads/" . $yeni_ad)){
-            $mysqli->query("UPDATE doctor SET image = '$yeni_ad' WHERE id = '$yeni_id'");
-        }
-    }
-    $_SESSION['alert'] = "Doktor başarıyla eklendi.";
-    header("Location: doktorlar.php");
-    exit;
-}
-
-// 2. DOKTOR GÜNCELLEME
-if(isset($_POST['guncelle'])){
-    $id = intval($_POST['id']);
-    $name = mysqli_real_escape_string($mysqli, $_POST['name']);
-    $spec = intval($_POST['specialization']);
-    $desc = mysqli_real_escape_string($mysqli, $_POST['description']);
-    $phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
-    
-    $mysqli->query("UPDATE doctor SET name='$name', specialization='$spec', description='$desc', phone='$phone' WHERE id='$id'");
-
-    if(isset($_FILES['profilephoto']) && $_FILES['profilephoto']['error'] == 0){
-        $yeni_ad = "dr_" . $id . "_" . time() . ".jpg";
-        if(move_uploaded_file($_FILES['profilephoto']['tmp_name'], "../uploads/" . $yeni_ad)){
-            $mysqli->query("UPDATE doctor SET image = '$yeni_ad' WHERE id = '$id'");
-        }
-    }
-    $_SESSION['alert'] = "Bilgiler güncellendi.";
-    header("Location: doktorlar.php");
-    exit;
-}
 ?>
 <!doctype html>
 <html lang="tr">
@@ -87,7 +43,7 @@ if(isset($_POST['guncelle'])){
 
         <div class="card admin-card border-0 mb-5">
             <div class="card-body p-4">
-                <form action="" method="POST" enctype="multipart/form-data" class="row g-2 align-items-end">
+                <form action="actions.php" method="POST" class="row g-2 align-items-end">
                     <div class="col">
                         <span class="label-style">AD SOYAD</span>
                         <input type="text" name="name" class="form-control input-minimal" placeholder="Dr. Adı Soyadı" required>
@@ -109,13 +65,10 @@ if(isset($_POST['guncelle'])){
                         <span class="label-style">İLETİŞİM</span>
                         <input type="text" name="phone" class="form-control input-minimal" placeholder="05XX...">
                     </div>
-                    <div class="col">
-                        <span class="label-style">RESİM</span>
-                        <input type="file" name="profilephoto" class="form-control input-minimal">
-                    </div>
                     <div class="col-auto">
                         <button type="submit" name="ekle" class="btn btn-primary btn-round">KAYDET</button>
                     </div>
+                    <input type="hidden" name="action" value="adddoctor">
                 </form>
             </div>
         </div>
@@ -128,13 +81,13 @@ if(isset($_POST['guncelle'])){
             $resim = (!empty($row['image'])) ? "../uploads/".$row['image']."?v=".time() : "https://via.placeholder.com/100";
         ?>
         <div class="doctor-row shadow-sm">
-            <form method="POST" enctype="multipart/form-data" class="d-flex align-items-center w-100 gap-2">
+            <form action="actions.php" method="POST" class="d-flex align-items-center w-100 gap-2">
                 <input type="hidden" name="id" value="<?=$row['id'];?>">
                 
                 <img src="<?=$resim;?>" class="img-circle" alt="Doktor">
                 
                 <div style="flex: 1.5;">
-                    <input type="text" name="name" class="form-control input-minimal fw-bold" value="<?=$row['name'];?>">
+                    <?=$row['name'];?> #<?=$row['status'];?>
                 </div>
                 
                 <div style="flex: 1;">
@@ -150,20 +103,24 @@ if(isset($_POST['guncelle'])){
                 </div>
 
                 <div style="flex: 2;">
-                    <input type="text" name="description" class="form-control input-minimal" value="<?=$row['description'];?>">
+                    <?=$row['description'];?>
                 </div>
 
                 <div style="flex: 1;">
-                    <input type="text" name="phone" class="form-control input-minimal" value="<?=$row['phone'];?>">
+                    <?=$row['phone'];?>
                 </div>
 
                 <div style="flex: 1;">
-                    <input type="file" name="profilephoto" class="form-control input-minimal" style="font-size: 0.7rem;">
+                    <select name="status" class="form-select input-minimal">
+                        <option value="0">Pasif</option>    
+                        <option value="1" <?= ($row['status']==1) ? "selected" : "";?>>Aktif</option>
+                    </select>
                 </div>
 
                 <div style="flex: 0.7;">
                     <button type="submit" name="guncelle" class="btn btn-outline-primary btn-round w-100">DÜZENLE</button>
                 </div>
+                <input type="hidden" name="action" value="editdoctorfast">
             </form>
         </div>
         <?PHP } ?>

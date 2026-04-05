@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `doctor` ( -- eğer daha önce tanımlanmamışsa "do
 	`profilephoto`	VARCHAR(200) NULL,
 	`status`		TINYINT NOT NULL,
 	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(), -- kayıt ne zaman eklenirse otomatik tarih girecek
-	UNIQUE (`name`) -- aynı mail ile tekrar kayıt girilmesin
+	UNIQUE (`name`) -- aynı name ile tekrar kayıt girilmesin
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

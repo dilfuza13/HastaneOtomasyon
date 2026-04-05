@@ -52,7 +52,11 @@ if($action=='adddoctor'){
     $specialization = p('specialization');
     $description = p('description');
     $phone = p('phone');
+
+    $check = mysqli_fetch_assoc($mysqli->query("SELECT id FROM doctor WHERE name='$name'"));
+    if($check){ $_SESSION['alert'] = "Doktor zaten mevcut!"; header("Location:doktorlar.php"); exit; }
     
+    /*
     // Fotoğraf İşlemi
     $profilephoto = "placeholder.png"; 
     if(isset($_FILES['profilephoto']) && $_FILES['profilephoto']['error'] == 0){
@@ -65,6 +69,7 @@ if($action=='adddoctor'){
             $profilephoto = $new_name;
         }
     }
+        */
 
     $sql = "INSERT INTO `doctor` (`name`, `specialization`, `description`, `phone`, `profilephoto`, `status`) 
             VALUES ('$name', '$specialization', '$description', '$phone', '$profilephoto', '1')";
@@ -77,6 +82,29 @@ if($action=='adddoctor'){
     }
     exit;
 }
+
+
+// 1. DOKTOR EKLEME
+if(isset($_POST['ekle'])){
+    $name = mysqli_real_escape_string($mysqli, $_POST['name']);
+    $spec = intval($_POST['specialization']);
+    $desc = mysqli_real_escape_string($mysqli, $_POST['description']);
+    $phone = mysqli_real_escape_string($mysqli, $_POST['phone']);
+    
+    $mysqli->query("INSERT INTO doctor (name, specialization, description, phone, status) VALUES ('$name', '$spec', '$desc', '$phone', 1)");
+    $yeni_id = $mysqli->insert_id;
+
+    if(isset($_FILES['profilephoto']) && $_FILES['profilephoto']['error'] == 0){
+        $yeni_ad = "dr_" . $yeni_id . "_" . time() . ".jpg";
+        if(move_uploaded_file($_FILES['profilephoto']['tmp_name'], "../uploads/" . $yeni_ad)){
+            $mysqli->query("UPDATE doctor SET image = '$yeni_ad' WHERE id = '$yeni_id'");
+        }
+    }
+    $_SESSION['alert'] = "Doktor başarıyla eklendi.";
+    header("Location: doktorlar.php");
+    exit;
+}
+
 
 // --- DOKTOR DÜZENLEME ---
 if($action=="editdoctor"){
@@ -91,6 +119,19 @@ if($action=="editdoctor"){
     
     $_SESSION['alert'] = "Doktor bilgileri güncellendi.";
     header("Location:doktor.php?id=$id");
+    exit;
+}
+
+// --- DOKTOR DÜZENLEME ---
+if($action=="editdoctorfast"){
+    $id = p('id');
+    $specialization = p('specialization');
+    $status = p('status');
+
+    $mysqli->query("UPDATE `doctor` SET `specialization`='$specialization', `status`='$status' WHERE `id`='$id'");
+    
+    $_SESSION['alert'] = "Doktor bilgileri güncellendi.";
+    header("Location:doktorlar.php");
     exit;
 }
 
