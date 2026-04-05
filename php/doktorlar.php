@@ -31,7 +31,7 @@
                 FROM doctor d 
                 LEFT JOIN specialization s ON d.specialization = s.id 
                 WHERE d.status = 1
-                ORDER BY d.id DESC";
+                ORDER BY d.id DESC limit 6";
     
     $sorgu = $mysqli->query($query);
     while($row = $sorgu->fetch_assoc()){
