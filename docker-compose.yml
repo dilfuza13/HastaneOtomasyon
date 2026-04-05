@@ -3,7 +3,7 @@ services:
   php:
     container_name: PHP
     restart: always #always, no, on-failure, unless-stopped
-    image: volkansezer/phpmysqli
+    image: volkansezer/phpmysqli:v0.1
     #image: php:8.4-fpm-alpine
     #command: docker-php-ext-install mysqli # çalışmazsa, kurulumdan sonra Terminalde aç docker-php-ext-install mysqli komutunu çalıştır
 
