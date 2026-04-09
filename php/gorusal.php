@@ -19,7 +19,23 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="assets/style.css" rel="stylesheet">
+
+  <style>
+    :root { --primary-color: #0d6efd; --success-color: #198754; --bg-light: #f4f7fe; }
+    body { background-color: var(--bg-light); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-top: 100px; }
+    
+    .main-card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: #fff; }
+    .header-gradient { background: linear-gradient(45deg, #0d6efd, #0046b8); color: white; border-radius: 20px; padding: 30px; margin-bottom: 30px; }
+    
+    .form-select { border-radius: 10px; border: 1px solid #e0e0e0; padding: 12px; cursor: pointer; }
+    .btn-appointment { border-radius: 12px; padding: 12px 30px; font-weight: 600; text-transform: uppercase; }
+    
+    .slot-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+    .btn-check:checked + .btn-outline-primary { background-color: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3); }
+    
+    .status-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
+    .table thead { background-color: #f8f9fa; }
+  </style>
 
   <script>
     function git(url){ window.document.location.href=url; }
