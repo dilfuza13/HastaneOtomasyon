@@ -8,74 +8,8 @@
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
 
-  <style>
-    body {
-      padding-top: 110px;
-      background-color: #f8f9fa;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    }
-
-    /* NAVBAR */
-    .navbar {
-      padding: 22px 0;
-    }
-
-    .navbar-brand {
-      color: #0d6efd !important;
-      font-weight: 700;
-      font-size: 1.9rem;
-    }
-
-    /* ---- DOKTOR ALANI ---- */
-    .doctor-wrapper {
-      display: flex;
-      align-items: flex-start;
-      padding-left: 0;
-    }
-
-    .doctor-photo {
-      width: 90px;          /* DAHA KÜÇÜK */
-      height: auto;
-      display: block;
-      margin-right: 16px;
-    }
-
-    /* ---- SİL FORMU (ARKA PLAN YOK) ---- */
-    .delete-form {
-      background: none;
-      padding: 0;
-      margin: 0;
-      box-shadow: none;
-    }
-
-    .delete-form button {
-      box-shadow: none;
-    }
-
-    /* ---- DÜZENLE FORMU ---- */
-    .edit-form {
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      max-width: 520px;
-      margin: 40px 0 40px 20px;
-    }
-
-    .edit-form input {
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 15px;
-      border: 1px solid #ced4da;
-      margin-bottom: 12px;
-    }
-
-    .edit-form input:focus {
-      border-color: #0d6efd;
-      outline: none;
-      box-shadow: none;
-    }
-  </style>
 </head>
 
 <body>

@@ -14,13 +14,7 @@ $selected_doctor = $_GET['doctor'] ?? null;
   <title>Nova Care | Randevu Sistemi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { padding-top: 110px; background-color: #f8f9fa; }
-    .hero { background: linear-gradient(90deg, #0d6efd, #4dabf7); color: white; padding: 60px 0; border-radius: 18px; margin-bottom: 30px; }
-    .panel { background: white; padding: 28px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
-    /* Saat butonları için senin tasarımını biraz daha işlevsel hale getirdik */
-    .btn-check:disabled + .btn-secondary { opacity: 0.3; text-decoration: line-through; }
-  </style>
+  <link href="assets/style.css" rel="stylesheet">
 </head>
 <body>
 

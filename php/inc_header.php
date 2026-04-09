@@ -1,42 +1,4 @@
-<style>
-	/* =====================
-       NAVBAR
-    ===================== */
-    .navbar {
-      padding: 22px 0;
-    }
 
-    .navbar-brand {
-      color: #0d6efd !important;
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .nav-link {
-      font-weight: 500;
-      position: relative;
-    }
-
-    .nav-link:hover {
-      color: #0d6efd !important;
-    }
-
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: #0d6efd;
-      transition: .3s;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-</style>
 <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
   <div class="container">
 

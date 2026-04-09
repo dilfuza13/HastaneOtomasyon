@@ -21,13 +21,7 @@ $dr = $dr_query->fetch_assoc();
     <title>Randevu Al - <?=$dr['name'];?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f4f7f6; padding-top: 50px; }
-        .doctor-profile { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .slot-btn { margin-bottom: 10px; border-radius: 10px; font-weight: 500; transition: all 0.2s; }
-        .slot-btn:hover:not(:disabled) { transform: scale(1.05); }
-        .day-title { border-bottom: 2px solid #0d6efd; display: inline-block; margin-bottom: 15px; padding-bottom: 5px; font-weight: bold; }
-    </style>
+   <link href="assets/style.css" rel="stylesheet">
 </head>
 <body>
 
