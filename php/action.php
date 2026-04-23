@@ -41,11 +41,11 @@
 
         if($patient=="" || $request=="" || $file==""){echo "eksik veri"; exit;}
 
-        $newfilename = rand(00000, 99999)."-".rand(00000, 99999).$file["name"];
+        $fileurl = rand(00000, 99999)."-".rand(00000, 99999).$file["name"];
         
-        if(!move_uploaded_file($file["tmp_name"], "uploads/" . $newfilename)){echo "Dosya yüklenemedi"; exit;}
+        if(!move_uploaded_file($file["tmp_name"], "uploads/" . $fileurl)){echo "Dosya yüklenemedi"; exit;}
 
-        $mysqli->query("INSERT INTO uploads (patient, request, fileurl) VALUES ('$patient', '$request', '$newfilename')");
+        $mysqli->query("INSERT INTO uploads (patient, request, fileurl) VALUES ('$patient', '$request', '$fileurl')");
 
         header("Location: $siteurl/talep.php?id=$request");
 
