@@ -69,6 +69,16 @@ CREATE TABLE IF NOT EXISTS `patient` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+CREATE TABLE IF NOT EXISTS `resetpassword` (
+	`id`			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`patient`		INT NOT NULL,
+	`resetcode`		VARCHAR(250) NOT NULL,
+	`status`		TINYINT NOT NULL,
+	`expiredtime`	TIMESTAMP NOT NULL,
+	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 CREATE TABLE IF NOT EXISTS `timeslot` (
 	`id`			BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT, -- daha fazla veri olacağı için bigint yaptık
 	`doctor`		INT NOT NULL,
@@ -97,5 +107,14 @@ CREATE TABLE IF NOT EXISTS `requests` (
 	`patient`		INT NOT NULL,
 	`story`			TEXT NOT NULL,
 	`status`		TINYINT NOT NULL, -- 0-oluşturuldu, 1-cevaplandı, 2-bekliyor
+	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE IF NOT EXISTS `uploads` (
+	`id`			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`patient`		INT NOT NULL,
+	`request`		INT NOT NULL,
+	`fileurl`		VARCHAR(250) NOT NULL,
 	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

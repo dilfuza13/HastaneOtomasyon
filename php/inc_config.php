@@ -1,6 +1,6 @@
 <?PHP
-
-	session_start(); ob_start();
+	ob_start();
+	session_start();
 
 	// veri tabanı bağlantı bilgilerini tanımlıyoruz
 
@@ -23,9 +23,13 @@
 	mysqli_query($mysqli ,"SET NAMES UTF8");
 
 
+	$siteurl = "http://localhost:3333";
 	$sitename = "Hastane Otomasyon"; //değiştirilebilir tanımalma
 	const _SiteName = "Hastane Otomasyon"; //değiştirilemez tanımlama
 	const _CopyRight = "2026";
+
+	$info_mail = "info@dilfuza.com";
+
 
 
 	//GET ile alınan verileri temizleyen fonksion

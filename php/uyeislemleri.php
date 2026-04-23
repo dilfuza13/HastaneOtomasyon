@@ -123,7 +123,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
-
+        
+        <center><a href="parolamiunuttum.php" style="color:blue;font-size:16px;text-decoration:none;">Parolamı Unuttum?</a></center>
         </form>
       </div>
     </div>

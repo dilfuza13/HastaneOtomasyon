@@ -2,6 +2,7 @@
 # Klasörleri ignore eder
 vendor/
 mysql/
+.vscode/
 
 # Logları ignore eder, important.log olanı hariç tutar
 *.zip

@@ -9,6 +9,7 @@ services:
 
     volumes:
       - "./php/:/var/www/html" # sync the current dir on local machine to the dir of container
+      - "./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini"
     ports:
       - 3333:80
 
