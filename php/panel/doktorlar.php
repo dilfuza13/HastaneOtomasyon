@@ -116,7 +116,7 @@ require_once("../inc_config.php");
                 
                 <!-- Doktor Adı Soyadı (Düzenlenebilir input haline getirildi) -->
                 <div style="flex: 1.5;">
-                    <input type="text" name="name" value="<?=htmlspecialchars($row['name']);?>" class="input-row-edit fw-bold" title="Düzenlemek için tıklayın">
+                    <input type="text" name="name" value="<?=htmlspecialchars($row['name'] ?? '');?>" class="input-row-edit fw-bold" title="Düzenlemek için tıklayın">
                 </div>
                 
                 <!-- Uzmanlık Seçimi -->
@@ -134,12 +134,12 @@ require_once("../inc_config.php");
 
                 <!-- Doktor Açıklaması (Düzenlenebilir input haline getirildi) -->
                 <div style="flex: 2;">
-                    <input type="text" name="description" value="<?=htmlspecialchars($row['description']);?>" class="input-row-edit text-muted" placeholder="Açıklama girilmemiş" title="Düzenlemek için tıklayın">
+                    <input type="text" name="description" value="<?=htmlspecialchars($row['description'] ?? '');?>" class="input-row-edit text-muted" placeholder="Açıklama girilmemiş" title="Düzenlemek için tıklayın">
                 </div>
 
                 <!-- Telefon Numarası (Düzenlenebilir input haline getirildi) -->
                 <div style="flex: 1;">
-                    <input type="text" name="phone" value="<?=htmlspecialchars($row['phone']);?>" class="input-row-edit" placeholder="Telefon yok" title="Düzenlemek için tıklayın">
+                    <input type="text" name="phone" value="<?=htmlspecialchars($row['phone'] ?? '');?>" class="input-row-edit" placeholder="Telefon yok" title="Düzenlemek için tıklayın">
                 </div>
 
                 <!-- Durum (Aktif/Pasif Hatası Giderildi) -->
