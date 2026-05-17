@@ -116,7 +116,7 @@ require_once("../inc_config.php");
                 
                 <!-- Doktor Adı Soyadı (Düzenlenebilir input haline getirildi) -->
                 <div style="flex: 1.5;">
-                    <input type="text" name="name" value="<?=htmlspecialchars($row['name']);?>" class="input-row-edit fw-bold" title="Düzenlemek için tıklayın">
+                    <h5><a href="doktor.php?id=<?=$row['id'];?>"><?= 'Dr. ' . $row['name']; ?></a></h5>
                 </div>
                 
                 <!-- Uzmanlık Seçimi -->
@@ -134,12 +134,12 @@ require_once("../inc_config.php");
 
                 <!-- Doktor Açıklaması (Düzenlenebilir input haline getirildi) -->
                 <div style="flex: 2;">
-                    <input type="text" name="description" value="<?=htmlspecialchars($row['description']);?>" class="input-row-edit text-muted" placeholder="Açıklama girilmemiş" title="Düzenlemek için tıklayın">
+                    <h5><?=substr($row['description']??"-",0,30); ?></h5>
                 </div>
 
                 <!-- Telefon Numarası (Düzenlenebilir input haline getirildi) -->
                 <div style="flex: 1;">
-                    <input type="text" name="phone" value="<?=htmlspecialchars($row['phone']);?>" class="input-row-edit" placeholder="Telefon yok" title="Düzenlemek için tıklayın">
+                    <h5><?=substr($row['phone']??"-",0,30); ?></h5>
                 </div>
 
                 <!-- Durum (Aktif/Pasif Hatası Giderildi) -->

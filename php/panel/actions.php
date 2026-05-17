@@ -128,6 +128,8 @@ if($action=="editdoctorfast"){
     $specialization = p('specialization');
     $status = p('status');
 
+    if(!is_numeric($id)) { $_SESSION['alert'] = "Bilgiler eksik veya hatalı!"; header("Location:doktorlar.php"); exit; }
+
     $mysqli->query("UPDATE `doctor` SET `specialization`='$specialization', `status`='$status' WHERE `id`='$id'");
     
     $_SESSION['alert'] = "Doktor bilgileri güncellendi.";
