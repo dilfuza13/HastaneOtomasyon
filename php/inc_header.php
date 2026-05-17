@@ -55,25 +55,25 @@
       <a class="navbar-brand position-absolute start-50 translate-middle-x" href="#">Nova Care</a>
 
       <ul class="navbar-nav mx-auto gap-4">
-        <li class="nav-item"><a class="nav-link" href="randevu.php">Randevu</a></li>
+        <li class="nav-item"><a class="nav-link" href="uzmanliklar.php">Hizmetlerimiz</a></li>
+        <li class="nav-item"><a class="nav-link" href="iletisim.php">İletişim</a></li>
+       
+        <?PHP if(isset($_SESSION['patient'])){?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Hizmetler
+            Hesabım
           </a>
           <ul class="dropdown-menu shadow-sm" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Poliklinikler</a></li>
-            <li><a class="dropdown-item" href="#">Laboratuvar</a></li>
+            <li><a class="dropdown-item" href="hesabim.php">Hesabım</a></li>  
+            <li><a class="dropdown-item" href="hesabim.php">Randevularım</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Görüntüleme</a></li>
+            <li><a class="dropdown-item" href="cikis.php">Çıkış</a></li>
           </ul>
         </li>
-        <?PHP if(isset($_SESSION['patient'])){?>
-        <li class="nav-item"><a class="nav-link" href="hesabim.php">Hesabım</a></li>
-        <li class="nav-item"><a class="nav-link" href="cikis.php">Çıkış</a></li>
         <?PHP }else{ ?>
         <li class="nav-item"><a class="nav-link" href="uyeislemleri.php">Üye İşlemleri</a></li>
         <?PHP } ?>
-        <li class="nav-item"><a class="nav-link" href="iletisim.php">İletişim</a></li>
+        
       </ul>
 
     </div>
