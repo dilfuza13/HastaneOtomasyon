@@ -13,8 +13,8 @@
     $patient = mysqli_fetch_assoc($mysqli->query("select id from patient where email='$email' or tckno='$tckno'"));
     if($patient){echo 'bu eposta veya TCKN ile zaten bir hesap var!'; exit;}
 
-    $create = $mysqli->query("insert into patient(name, email, password, phone, birthyear, address, relative,tckno)
-                        values('$name','$email','$password','$phone','$birthyear','$address','$relative')");
+    $create = $mysqli->query("insert into patient(name, email, password, phone, birthyear, address, relative, tckno)
+                        values('$name','$email','$password','$phone','$birthyear','$address','$relative','$tckno')");
 
     if($create){
         $_SESSION['patient'] = [
