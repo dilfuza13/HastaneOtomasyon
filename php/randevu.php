@@ -18,8 +18,11 @@ $selected_doctor = $_GET['doctor'] ?? null;
     body { padding-top: 110px; background-color: #f8f9fa; }
     .hero { background: linear-gradient(90deg, #0d6efd, #4dabf7); color: white; padding: 60px 0; border-radius: 18px; margin-bottom: 40px; }
     .panel { background: white; padding: 28px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
-    /* Saat butonları için senin tasarımını biraz daha işlevsel hale getirdik */
-    .btn-check:disabled + .btn-secondary { opacity: 0.3; text-decoration: line-through; }
+    /* Saat slotları için özelleştirmeler */
+    .slot-label { font-weight: 600; padding: 10px 20px; transition: all 0.2s; border-radius: 8px; }
+    .btn-check:disabled + .slot-label { background-color: #f1f3f5; color: #adb5bd; border-color: #e9ecef; text-decoration: line-through; cursor: not-allowed; opacity: 1; }
+    .btn-check:not(:disabled):hover + .slot-label { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .btn-check:checked + .slot-label { transform: scale(1.05); box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3); }
   </style>
 </head>
 <body>
@@ -67,18 +70,27 @@ $selected_doctor = $_GET['doctor'] ?? null;
           <div class="d-flex flex-wrap gap-2">
             <?php 
             if($selected_doctor){
-                // Panelde (slotlar.php) açtığın ve henüz rezerve edilmemiş (status=1) saatleri çekiyoruz
-                $slots = $mysqli->query("SELECT * FROM timeslot WHERE doctor='$selected_doctor' AND status=1 ORDER BY timeslot ASC");
+                // Tüm slotları çekiyoruz (status=1 müsait, status=0 veya diğerleri dolu)
+                $slots = $mysqli->query("SELECT * FROM timeslot WHERE doctor='$selected_doctor' ORDER BY timeslot ASC");
                 
                 if($slots->num_rows > 0){
                     while($s = $slots->fetch_assoc()){
                         $saat = date('H:i', strtotime($s['timeslot']));
-                        echo '
-                        <input type="radio" class="btn-check" name="timeslot" id="slot'.$s['id'].'" value="'.$saat.'" required>
-                        <label class="btn btn-outline-primary" for="slot'.$s['id'].'">'.$saat.'</label>';
+                        
+                        if($s['status'] == 1) {
+                            // Müsait slot
+                            echo '
+                            <input type="radio" class="btn-check" name="timeslot" id="slot'.$s['id'].'" value="'.$saat.'" required>
+                            <label class="btn btn-outline-primary slot-label" for="slot'.$s['id'].'">'.$saat.'</label>';
+                        } else {
+                            // Dolu slot
+                            echo '
+                            <input type="radio" class="btn-check" name="timeslot" id="slot'.$s['id'].'" disabled>
+                            <label class="btn btn-outline-secondary slot-label" for="slot'.$s['id'].'" title="Bu saat dolu">'.$saat.'</label>';
+                        }
                     }
                 } else {
-                    echo '<p class="text-danger small">Bu doktor için henüz müsait çalışma saati tanımlanmamış.</p>';
+                    echo '<p class="text-danger small">Bu doktor için henüz çalışma saati tanımlanmamış.</p>';
                 }
             } else {
                 echo '<p class="text-muted small">Saatleri görmek için önce doktor seçiniz.</p>';
