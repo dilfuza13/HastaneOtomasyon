@@ -113,8 +113,8 @@
         <h5 class="mb-3">Giriş Yap</h5>
 
         <div class="form-floating mb-3">
-          <input type="text" name="email" class="form-control" placeholder="E-Posta veya TCKN" required>
-          <label>E-Posta veya TCKN</label>
+          <input type="text" name="email" class="form-control" placeholder="E-Posta veya TCKNO" required>
+          <label>E-Posta veya TCKNO</label>
         </div>
 
         <div class="form-floating mb-3">
@@ -142,8 +142,8 @@
         </div>
 
         <div class="form-floating mb-3">
-          <input type="text" name="tckno" class="form-control" placeholder="TCKN" required min="11" max="11" maxlength="11" pattern="[0-9]{11}" title="TCKN 11 haneli sayı olmalıdır">
-          <label>TCKN</label>
+          <input type="text" name="tckno" class="form-control" placeholder="TCKNO" required min="11" max="11" maxlength="11" pattern="[0-9]{11}" title="TCKNO 11 haneli sayı olmalıdır">
+          <label>TCKNO</label>
         </div>
 
         <div class="form-floating mb-3">
