@@ -29,9 +29,9 @@
     .hero {
       background: linear-gradient(90deg, #0d6efd, #4dabf7);
       color: white;
-      padding: 80px 0;
+      padding: 60px 0;
       border-radius: 18px;
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
 
     /* HAKKIMIZDA KARTLARI */

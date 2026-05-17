@@ -55,33 +55,60 @@
     .nav-link:hover::after {
       width: 100%;
     }
+/* =====================
+   HERO (İKİ SAYFADA DA MİLİMETRİK EŞİT KUTU)
+===================== */
+.hero {
+  background: linear-gradient(90deg, #0d6efd, #4dabf7);
+  color: white;
+  
+  /* Yüksekliği tam olarak buraya kilitliyoruz */
+  height: 250px; /* Eğer daha büyük istersen burayı 300px veya 350px yapabilirsin */
+  
+  border-radius: 18px;
+  margin-bottom: 40px;
+  
+  /* Yazıların kutuyu büyütmesini engelleyen, dikeyde ve yatayda ortalayan sihirli kodlar: */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px; /* Sadece sağdan soldan güvenli boşluk, yukarı-aşağı YASAK */
+  box-sizing: border-box;
+}
 
-    /* =====================
-       HERO
-    ===================== */
-    .hero {
-      background: linear-gradient(90deg, #0d6efd, #4dabf7);
-      color: white;
-      padding: 60px 0; /* 100'ü 60'a düşürdük, böylece kutu daraldı ve şıklaştı */
-      border-radius: 18px;
-      margin-bottom: 40px; /* Alttaki boşluğu da biraz azalttık */
-    }
+/* =====================
+   RESİMLER (Senin Gönderdiğin Orijinal Kod)
+===================== */
+.hero-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
   </style>
 </head>
 
 <body>
 
 <?PHP include('inc_header.php');?>
-
 <div class="container">
   <div class="hero text-center">
-    <h1 class="fw-bold display-4">Nova Care Sağlık Hizmetleri</h1>
-    <p class="lead mt-3">Sağlığınız Bizim Önceliğimiz</p>
-    <p class="mt-4"> Uzman Kadromuzla Her Zaman Yanınızdayız.</p>
+    <h1 class="m-0 fw-bold">Web Sitemize Hoş Geldiniz</h1>
+    <p class="lead m-0 mt-2">Yenilikçi çözümler, modern tasarımlar ve profesyonel hizmetler.</p>
   </div>
 </div>
 
-
+<div class="container mb-5">
+  <div class="row g-4">
+    <div class="col-md-6">
+      <img src="Hastaneresim/hospital-484848_1280.jpg" alt="Görsel 1" class="img-fluid rounded shadow-sm hero-img">
+      
+    </div>
+    <div class="col-md-6">
+     <img src="Hastaneresim/types-of-bed-accommodation.jpg" alt="Görsel 1" class="img-fluid rounded shadow-sm hero-img">
+      </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -7,7 +7,26 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body { padding-top: 110px; background-color: #f8f9fa; }
-    .hero { background: linear-gradient(90deg, #0d6efd, #4dabf7); color: white; padding: 60px 0; border-radius: 18px; margin-bottom: 40px; }
+    
+    /* =====================
+       HERO (TÜM SAYFALARDA MİLİMETRİK EŞİT KUTU)
+    ===================== */
+    .hero { 
+      background: linear-gradient(90deg, #0d6efd, #4dabf7); 
+      color: white; 
+      height: 250px; 
+      border-radius: 18px; 
+      margin-bottom: 40px; 
+      
+      /* Yazı miktarından bağımsız olarak kutunun boyutunu koruyan sihirli flex yapısı */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    
     .doctor-card { border: none; border-radius: 20px; overflow: hidden; background: #fff; height: 100%; transition: 0.3s; }
     .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(13,110,253,0.1); }
     .doctor-img { height: 320px; overflow: hidden; }
@@ -20,13 +39,34 @@
 <?PHP if(file_exists('inc_header.php')) { include('inc_header.php'); } ?>
 
 <div class="container">
+  <!-- Hero Alanı -->
   <div class="hero text-center">
-    <h1 class="fw-bold display-4">Nova Care Doktorlarımız</h1>
-    <p class="lead mt-3">Sağlığınız İçin Uzman Kadromuzla Yanınızdayız.</p>
+    <h1 class="fw-bold m-0">Doktorlarımız</h1>
+    <p class="lead m-0 mt-2">Uzman Kadromuzla Her Zaman Yanınızdayız.</p>
   </div>
+</div>
 
+<div class="container"> 
   <div class="row g-4 mb-5">
     <?PHP
+    // 1. ADIM: Hastaneresim klasöründeki resimleri listeye alalım
+    $hastane_resimleri = [];
+    if (is_dir("Hastaneresim")) {
+        $dir = opendir("Hastaneresim");
+        while (($file = readdir($dir)) !== false) {
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) {
+                $hastane_resimleri[] = "Hastaneresim/" . $file;
+            }
+        }
+        closedir($dir);
+    }
+    
+    // Resimleri alfabetik sırala (Böylece resim1, resim2, resim3 sırasıyla gider)
+    sort($hastane_resimleri);
+    $resim_sayisi = count($hastane_resimleri);
+
+    // Doktor verilerini çekelim
     $query = "SELECT d.*, s.specialization as uzmanlik
                 FROM doctor d 
                 LEFT JOIN specialization s ON d.specialization = s.id 
@@ -34,9 +74,17 @@
                 ORDER BY d.id DESC limit 6";
     
     $sorgu = $mysqli->query($query);
+    $i = 0; // Sıralı resim seçimi için sayaç
+    
     while($row = $sorgu->fetch_assoc()){
-        // Resim yolu tamiri:
-        $resim_yolu = (!empty($row['image'])) ? "uploads/".$row['image']."?v=".time() : "https://via.placeholder.com/400x500";
+        // 2. ADIM: Doğrudan klasördeki sıralı resmi atayalım
+        if ($resim_sayisi > 0) {
+            $resim_yolu = $hastane_resimleri[$i % $resim_sayisi];
+        } else {
+            // Eğer klasörde hiç resim kalmazsa hata vermemesi için yedek görsel
+            $resim_yolu = "https://via.placeholder.com/400x500";
+        }
+        $i++;
     ?>
     <div class="col-lg-4 col-md-6 text-center">
       <div class="card doctor-card shadow-sm">
@@ -93,12 +141,10 @@
       <div class="modal-footer">
         <a href="uyeislemleri.php" class="btn btn-primary">Üyelik Oluştur</a>  
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
-        
       </div>
     </div>
   </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
