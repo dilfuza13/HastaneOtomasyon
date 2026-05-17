@@ -6,10 +6,10 @@
 
     if($email=='' || $password==''){echo 'Bilgiler eksik veya hatalı!'; exit;}
 
-    $patient = mysqli_fetch_assoc($mysqli->query("select * from patient where email='$email'"));
-    if(!$patient){echo 'E-Posta ve Parola hatalı!'; exit;}
+    $patient = mysqli_fetch_assoc($mysqli->query("select * from patient where email='$email' or tckno='$email'"));
+    if(!$patient){echo 'E-Posta veya TCKN ve Parola hatalı!'; exit;}
 
-    if($password!==$patient['password']){echo 'E-Posta ve Parola hatalı!'; exit;}
+    if($password!==$patient['password']){echo 'E-Posta veya TCKN ve Parola hatalı!'; exit;}
    
     $_SESSION['patient'] = [
         "login"		=> true,

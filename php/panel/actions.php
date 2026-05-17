@@ -83,6 +83,33 @@ if($action=='adddoctor'){
     exit;
 }
 
+// --- UZMANLIK EKLEME ---
+if($action=="addspecialization"){
+    $specialization = p("specialization");
+    $description = p("description");
+
+    $mysqli->query("INSERT INTO `specialization` (`specialization`, `description`, `status`) VALUES ('$specialization', '$description', '1')");
+    $_SESSION['alert'] = "Uzmanlık eklendi.";
+    header("Location:uzmanliklar.php");
+    exit;
+}
+
+
+// --- UZMANLIK DÜZENLEME ---
+if($action=="editspecialization"){
+    $id = p("id");
+    $specialization = p("specialization");
+    $description = p("description");
+    $status = p("status");
+
+    $mysqli->query("UPDATE `specialization` SET `specialization`='$specialization', `description`='$description', `status`='$status' WHERE `id`='$id'");
+    $_SESSION['alert'] = "Uzmanlık güncellendi.";
+    header("Location:uzmanliklar.php");
+    exit;
+}
+
+
+
 
 // 1. DOKTOR EKLEME
 if(isset($_POST['ekle'])){
