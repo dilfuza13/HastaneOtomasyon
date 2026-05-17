@@ -1,5 +1,16 @@
 <?PHP
 	require_once("../inc_config.php");
+
+	if(!isset($_GET['id'])){
+		header("Location: hastalar.php");
+		exit;
+	}
+	$patientid = $_GET['id'];
+	$patient = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$patientid'"));
+	if(!$patient){
+		header("Location: hastalar.php");
+		exit;
+	}
 ?>
 
 <html>
@@ -18,6 +29,121 @@
 	
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
 	<?PHP include("inc_header.php");?>
+
+	<hr>
+		<div class="container">
+
+			<h2><?=$patient['name']?> - Detaylar</h2>
+			<hr>
+			<div class="col-md-6">
+				
+				<form action="actions.php" method="post">
+					
+					<input type="text" name="tckno" value="<?=$patient['tckno']?>" placeholder="TCKNO">
+					<input type="text" name="name" value="<?=$patient['name']?>" placeholder="Hasta Adı">
+					<input type="email" name="email" value="<?=$patient['email']?>" placeholder="E-posta">
+					<input type="tel" name="phone" value="<?=$patient['phone']?>" placeholder="Telefon">
+					<input type="number" name="birthyear" value="<?=$patient['birthyear']?>" placeholder="Doğum Yılı">
+					<input type="submit" value="Kaydet">
+					<input type="hidden" name="action" value="updatepatient">
+					<input type="hidden" name="id" value="<?=$patientid?>">
+				</form>
+
+			</div>
+		
+
+			<hr>
+
+			<h2>Randevuları</h2>
+			<hr>
+			<div class="col-md-6">
+
+			<?PHP
+				$query = "SELECT a.id, a.doctor, a.status, d.name as doctorname, a.timeslot, s.specialization 
+					FROM appointment a
+					LEFT JOIN doctor d on d.id = a.doctor
+					LEFT JOIN specialization s on s.id = d.specialization
+					WHERE a.patient = '$patientid' 
+					ORDER BY a.timeslot DESC";
+
+				
+				$sql = $mysqli->query($query);
+				if($sql->num_rows > 0){ ?>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Tarih Saat</th>	
+							<th>Poliklinik</th>
+							<th>Doktor</th>
+							<th>Durum</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+					<?PHP
+					while($row = mysqli_fetch_assoc($sql)){
+						?>
+						<tr>
+							<td><?=$row['timeslot']?></td>
+							<td><?=$row['specialization']?></td>
+							<td><?=$row['doctorname']?></td>
+							<td><?=$row['status']?></td>
+						</tr>
+						<?PHP } ?>
+					</tbody>
+				</table>
+				<?PHP }else{ echo "Henüz randevu bulunamadı."; }
+			?>
+			</div>
+
+			
+			<div class="col-md-6">
+				<h2>Yeni Tahlil</h2>
+				<form action="actions.php" method="post">
+					<input type="text" name="test" value="" placeholder="Test">
+					<input type="submit" value="Kaydet">
+					<input type="hidden" name="action" value="addtest">
+					<input type="hidden" name="patient" value="<?=$patientid?>">
+				</form>
+
+				<hr>
+
+				<h2>Tahlil Sonuçları</h2>
+				<?PHP
+					$sql = $mysqli->query("SELECT * FROM laboratory_tests WHERE patient='$patientid'");
+					if($sql->num_rows > 0){ ?>
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Test</th>
+								<th>Sonuç</th>
+								<th>Durum</th>
+								<th>İşlem</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?PHP
+							while($row = mysqli_fetch_assoc($sql)){?>
+								<tr>
+									<td><?=$row['test']?></td>
+									<td><?=$row['result']?></td>
+									<td><?=$row['status']?></td>
+									<td><form action='actions.php' method='post'><input type='hidden' name='id' value='<?=$row['id']?>'><input type='submit' value='Sil'></form></td>
+								</tr>
+							<?PHP } ?>
+						</tbody>
+					</table>
+						
+					<?PHP }else{
+						echo "Henüz laboratuvar sonucu bulunamadı.";
+					}
+				?>
+				
+			</div>
+		</div>
+
+	</div>
 
 	
 	</body>

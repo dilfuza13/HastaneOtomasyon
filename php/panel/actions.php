@@ -190,4 +190,46 @@ if($action=="deletedoctor"){
     header("Location:doktorlar.php");
     exit;
 }
+
+
+
+if($action=="updatepatient"){
+    $id = p('id');
+    $tckno = p('tckno');
+    $name = p('name');
+    $email = p('email');
+    $phone = p('phone');
+    $birthyear = p('birthyear');
+
+    $mysqli->query("UPDATE `patient` SET `tckno`='$tckno', `name`='$name', `email`='$email', `phone`='$phone', `birthyear`='$birthyear' WHERE `id`='$id'");
+    
+    $_SESSION['alert'] = "Hasta bilgileri güncellendi.";
+    header("Location: hasta.php?id=$id");
+    exit;
+}
+
+if($action=="addtest"){
+    $patient = p('patient');
+    $test = p('test');
+    $result = p('result');
+
+    $mysqli->query("INSERT INTO `laboratory_tests` (`patient`, `test`, `result`, `status`) VALUES ('$patient', '$test', '$result', '0')");
+    
+    $_SESSION['alert'] = "Test eklendi.";
+    header("Location: hasta.php?id=$patient");
+    exit;
+}
+
+if($action=="updatetest"){
+    $id = p('id');
+    $test = p('test');
+    $result = p('result');
+    $status = p('status');
+
+    $mysqli->query("UPDATE `laboratory_tests` SET `test`='$test', `result`='$result', `status`='$status' WHERE `id`='$id'");
+    
+    $_SESSION['alert'] = "Test güncellendi.";
+    header("Location: hasta.php?id=$patient");
+    exit;
+}
 ?>

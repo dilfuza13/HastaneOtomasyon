@@ -11,6 +11,7 @@
 					<li><a href="slotlar.php" class="nav-link px-2 text-white">Slotlar</a></li>
 					<li><a href="doktorlar.php" class="nav-link px-2 text-white">Doktorlar</a></li>
 					<li><a href="uzmanliklar.php" class="nav-link px-2 text-white">Uzmanlıklar</a></li>
+					<li><a href="laboratuvar.php" class="nav-link px-2 text-white">Laboratuvar</a></li>
 					
 					<li><a href="personel.php" class="nav-link px-2 text-white">Personel</a></li>
 					<li><a href="logout.php" class="nav-link px-2 text-white">Çıkış</a></li>

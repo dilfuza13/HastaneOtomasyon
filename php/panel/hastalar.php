@@ -30,10 +30,19 @@
 	<h2>HASTALAR</h2>
 	<hr>
 
+	<form action="hastalar.php" method="get">
+		<input type="tel" name="tckno" placeholder="TCKNO" value="<?PHP echo isset($_GET['tckno']) ? $_GET['tckno'] : '';?>">
+		<input type="text" name="name" placeholder="Hasta Adı" value="<?PHP echo isset($_GET['name']) ? $_GET['name'] : '';?>">
+		<input type="submit" value="Ara">
+	</form>
+
+	<hr>
+
 	<table class="table table-striped  table-hover">
 		<thead>
 			<tr>
 			<th scope="col">#</th>
+			<th scope="col">TCKNO</th>
 			<th scope="col">Hasta Adı</th>
 			<th scope="col">E-Mail</th>
 			<th scope="col">Telefon</th>
@@ -47,13 +56,22 @@
 		<tbody>
 <?PHP
 $myQuery = "select * from patient";
+$myQuery .= " where 1=1";
+if(!empty($_GET['tckno'])){
+    $myQuery .= " and tckno like '%" .$_GET['tckno']. "%'";
+}
+if(!empty($_GET['name'])){
+    $myQuery .= " and name like '%" .$_GET['name']. "%'";
+}
+$myQuery .= " order by name desc";
 $result = $mysqli->query($myQuery);
 ?>
 
 <?PHP while($rs = mysqli_fetch_array($result)){?>
 			<tr>
 				<th scope="row"><?=$rs['id'];?></th>
-				<td><?=$rs['name'];?></td>
+				<td><a href="hasta.php?id=<?=$rs['id']?>"><?=$rs['tckno'];?></a></td>
+				<td><a href="hasta.php?id=<?=$rs['id']?>"><?=$rs['name'];?></a></td>
 				<td><?=$rs['email'];?></td>
 				<td><?=$rs['phone'];?></td>
 				<td><?=$rs['birthyear'];?></td>
