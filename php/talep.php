@@ -149,6 +149,13 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
 
              
           </div>
+
+          <!-- Sağ Alt Köşe: Sonuçlarımı Gönder Butonu -->
+          <div class="text-end mt-5">
+              <button type="button" class="btn btn-success btn-lg fw-bold rounded-pill px-4 shadow-sm" onclick="alert('Sonuçlarınız başarıyla gönderildi!')">
+                  Sonuçlarımı Gönder <i class="fa-solid fa-paper-plane ms-2"></i>
+              </button>
+          </div>
            
           </div>
       </div>
