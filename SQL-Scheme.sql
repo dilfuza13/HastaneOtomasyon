@@ -120,3 +120,14 @@ CREATE TABLE IF NOT EXISTS `uploads` (
 	`fileurl`		VARCHAR(250) NOT NULL,
 	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE IF NOT EXISTS `laboratory_tests` (
+	`id`			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`patient`		INT NOT NULL,
+	`test`			VARCHAR(50) NOT NULL,
+	`result`		VARCHAR(500) NULL,
+	`status`		TINYINT NOT NULL, -- 0- Oluşturuldu, 1- Sonuç Eklendi
+	`resulttime`	TIMESTAMP NULL,
+	`createdtime`	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
