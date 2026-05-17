@@ -178,9 +178,13 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
                     <td>Dr. <?=$rs['dname'];?></td>
                     <td class="text-center"><span class="status-badge bg-success bg-opacity-10 text-success">Aktif</span></td>
                     <td class="text-end">
-                        <a href="iptal.php?id=<?=$rs['aid'];?>" class="btn btn-sm btn-outline-danger border-0" onclick="return confirm('Randevuyu iptal etmek istediğinize emin misiniz?');">
-                            <i class="fa-solid fa-trash-can me-1"></i> İptal Et
-                        </a>
+                      <form action="actions.php" method="post" class="d-inline" onsubmit="return confirm('Bu randevuyu iptal etmek istediğinizden emin misiniz?')">
+                        <input type="hidden" name="action" value="randevuiptalet">
+                        <input type="hidden" name="randevu" value="<?=$rs['aid'];?>">
+                        <button type="submit" class="btn btn-sm btn-outline-danger border-0">
+                            <i class="fa-solid fa-trash-can"></i> İptal Et
+                        </button>
+                    </form>
                     </td>
                   </tr>
                 <?PHP } 

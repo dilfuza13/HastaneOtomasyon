@@ -110,10 +110,9 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
                 <h5 class="fw-bold">
                     <?PHP
                     $filequery = $mysqli->query("SELECT * FROM uploads WHERE request='$requestid'");
-                    while($f = mysqli_fetch_assoc($filequery)){
-                        echo '<a href="./uploads/' . $f['fileurl'] . '" target="_blank">' . $f['fileurl'] . '</a><br>';
-                    }
-                    ?>
+                    while($f = mysqli_fetch_assoc($filequery)){?>
+                        <a href="./uploads/<?=$f['fileurl'];?>" target="_blank"><?=$f['fileurl'];?></a><br>
+                    <?php } ?>
                 </h5>
             </div>
 
@@ -123,7 +122,7 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
           <div class="row g-3">
 
             <div class="col-md-6">
-                <form action="action.php" method="post">
+                <form action="actions.php" method="post">
                    
                 <label class="form-label small fw-bold text-muted">Ekleme Yap</label>
                 <textarea name="story" required class="form-select" placeholder="Eklemek istediğiniz bir şey var mı?..."></textarea>
@@ -137,7 +136,7 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
 
 
             <div class="col-md-6">
-                <form action="action.php" method="post" enctype="multipart/form-data">
+                <form action="actions.php" method="post" enctype="multipart/form-data">
                 <label class="form-label small fw-bold text-muted">Dosya Yükle</label>
                 <input type="file" name="file" class="form-select">
                 <button type="submit">YÜKLE</button>
@@ -148,13 +147,6 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
             </div>
 
              
-          </div>
-
-          <!-- Sağ Alt Köşe: Sonuçlarımı Gönder Butonu -->
-          <div class="text-end mt-5">
-              <button type="button" class="btn btn-success btn-lg fw-bold rounded-pill px-4 shadow-sm" onclick="alert('Sonuçlarınız başarıyla gönderildi!')">
-                  Sonuçlarımı Gönder <i class="fa-solid fa-paper-plane ms-2"></i>
-              </button>
           </div>
            
           </div>

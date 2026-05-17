@@ -8,6 +8,37 @@
     $action = p("action");
 
 
+    if($action=='randevuiptalet'){
+        $randevu = p('randevu');
+
+        $randevubul = mysqli_fetch_assoc($mysqli->query("SELECT * FROM appointment WHERE id='$randevu' and patient='$patientid'"));
+        if(!$randevubul){
+            exit("Hata! Randevu bulunamadı!");
+        }
+
+        if($randevubul['status']!=1){
+            exit("Hata! Randevu zaten iptal edilmiş veya dolu!");
+        }
+
+        $zaman = $randevubul['timeslot'];
+
+        $date = new DateTime($zaman);
+        $now = new DateTime();
+        if ($date <= $now) {
+            exit("Hata! Geçmiş randevular silinemez.");
+        }
+        
+        if(!$mysqli->query("delete from appointment where id='$randevu' and patient='$patientid'")){
+            exit("Hata! Randevu silinemedi.");
+        }
+
+        $mysqli->query("update timeslot set status='1' where doctor='{$randevubul['doctor']}' and timeslot='{$randevubul['timeslot']}'");
+
+        header("Location: $siteurl/hesabim.php");
+        exit;
+    }
+
+
 
     if($action=="addstory"){
         

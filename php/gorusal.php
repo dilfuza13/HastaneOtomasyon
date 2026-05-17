@@ -117,39 +117,35 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
 
     <div class="col-12">
       <div class="main-card p-4 shadow-sm">
-        <h5 class="fw-bold mb-4 text-dark"><i class="fa-solid fa-clock-rotate-left me-2 text-success"></i> Aktif Randevularınız</h5>
+        <h5 class="fw-bold mb-4 text-dark"><i class="fa-solid fa-clock-rotate-left me-2 text-success"></i> Aktif Talepleriniz</h5>
         <div class="table-responsive">
           <table class="table align-middle">
             <thead class="table-light">
               <tr>
-                <th>TARİH & SAAT</th>
+                <th>TARİH</th>
                 <th>POLİKLİNİK</th>
                 <th>DOKTOR</th>
                 <th class="text-center">DURUM</th>
-                <th class="text-end">İŞLEM</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <?PHP
               // Sorguya a.id'yi aid olarak ekledim ki silme işlemi yapılabilsin
-              $myQuery = "SELECT a.id as aid, a.timeslot, d.name as dname, s.specialization as kname 
-                          FROM appointment a 
-                          INNER JOIN doctor d ON d.id=a.doctor 
+              $myQuery = "select r.*, s.specialization as kname, d.name as dname
+                          FROM requests r 
+                          INNER JOIN doctor d ON d.id=r.doctor 
                           INNER JOIN specialization s ON s.id=d.specialization 
-                          WHERE a.patient='$patientid' AND a.timeslot >= CURRENT_TIMESTAMP() ORDER BY a.timeslot ASC";
+                          WHERE r.patient='$patientid' ORDER BY r.id DESC";
               $res = $mysqli->query($myQuery);
               if($res->num_rows > 0){
                 while($rs = mysqli_fetch_array($res)){ ?>
                   <tr>
-                    <td class="fw-bold text-dark"><?=date("d.m.Y H:i", strtotime($rs['timeslot']));?></td>
+                    <td class="fw-bold text-dark"><?=date("d.m.Y H:i", strtotime($rs['createdtime']));?></td>
                     <td><span class="text-muted small"><?=$rs['kname'];?></span></td>
                     <td>Dr. <?=$rs['dname'];?></td>
                     <td class="text-center"><span class="status-badge bg-success bg-opacity-10 text-success">Aktif</span></td>
-                    <td class="text-end">
-                        <a href="iptal.php?id=<?=$rs['aid'];?>" class="btn btn-sm btn-outline-danger border-0" onclick="return confirm('Randevuyu iptal etmek istediğinize emin misiniz?');">
-                            <i class="fa-solid fa-trash-can me-1"></i> İptal Et
-                        </a>
-                    </td>
+                    <td><a href="talep.php?id=<?=$rs['id'];?>">DETAYLI İNCELE</a></td>
                   </tr>
                 <?PHP } 
               } else {
