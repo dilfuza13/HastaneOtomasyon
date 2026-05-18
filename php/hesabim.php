@@ -197,6 +197,91 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
       </div>
     </div>
 
+     <div class="col-12">
+      <div class="main-card p-4 shadow-sm">
+        <h5 class="fw-bold mb-4 text-dark"><i class="fa-solid fa-clock-rotate-left me-2 text-success"></i> Taleplerim (Doktora Danış)</h5>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>TARİH</th>
+                <th>POLİKLİNİK</th>
+                <th>DOKTOR</th>
+                <th>DETAY</th>
+                <th>CEVAP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?PHP
+              
+              $myQuery = "SELECT r.*, d.name as dname, s.specialization as kname FROM requests as r
+                            INNER JOIN doctor as d ON r.doctor = d.id 
+                            INNER JOIN specialization as s ON s.id = d.specialization 
+                            WHERE patient='$patientid' ORDER BY createdtime DESC";
+              $res = $mysqli->query($myQuery);
+              if($res->num_rows > 0){
+                while($rs = mysqli_fetch_array($res)){ ?>
+                  <tr>
+                    <td class="fw-bold text-dark"><a href="talep.php?id=<?=$rs['id'];?>"><?=$rs['createdtime'];?></a></td>
+                    <td><span class="text-muted small"><?=$rs['kname'];?></span></td>
+                    <td>Dr. <?=$rs['dname'];?></td>
+                    <td><?=$rs['story'];?></td>
+                  </tr>
+                <?PHP } 
+              } else {
+                  echo "<tr><td colspan='5' class='text-center py-5 text-muted'>Henüz bir talebiniz bulunmuyor.</td></tr>";
+              } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+     <div class="col-12">
+      <div class="main-card p-4 shadow-sm">
+        <h5>Yeni Dosya Yükle</h5>
+        <form action="actions.php" method="post" enctype="multipart/form-data">
+          <input type="text" name="title" placeholder="Dosya Adı" required>
+          <input type="file" name="file" required>
+          <button type="submit">YÜKLE</button>
+          <input type="hidden" name="action" value="addfile">
+        </form>
+
+        <hr>
+            
+
+        <h5 class="fw-bold mb-4 text-dark"><i class="fa-solid fa-clock-rotate-left me-2 text-success"></i> Dosyalarım</h5>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>TARİH</th>
+                <th>DOSYA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?PHP
+              
+              $myQuery = "SELECT * FROM uploads WHERE patient='$patientid' ORDER BY createdtime DESC";
+              $res = $mysqli->query($myQuery);
+              if($res->num_rows > 0){
+                while($rs = mysqli_fetch_array($res)){ ?>
+                  <tr>
+                    <td class="fw-bold text-dark"><?=$rs['createdtime'];?></td>
+                    <td><span class="text-muted small"><a href="./uploads/<?=$rs['fileurl'];?>" target="_blank"><?=$rs['title'];?></a></span></td>
+                  </tr>
+                <?PHP } 
+              } else {
+                  echo "<tr><td colspan='5' class='text-center py-5 text-muted'>Henüz bir dosyanız bulunmuyor.</td></tr>";
+              } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 

@@ -109,9 +109,9 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
                 <label class="form-label small fw-bold text-muted">Dosyalar</label>
                 <h5 class="fw-bold">
                     <?PHP
-                    $filequery = $mysqli->query("SELECT * FROM uploads WHERE request='$requestid'");
+                    $filequery = $mysqli->query("SELECT * FROM uploads WHERE patient='$patientid'");
                     while($f = mysqli_fetch_assoc($filequery)){?>
-                        <a href="./uploads/<?=$f['fileurl'];?>" target="_blank"><?=$f['fileurl'];?></a><br>
+                        <a href="./uploads/<?=$f['fileurl'];?>" target="_blank"><?=$f['title'];?></a><br>
                     <?php } ?>
                 </h5>
             </div>
@@ -132,20 +132,6 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
                     <input type="hidden" name="request" value="<?=$requestid;?>">
                 </form>
             </div>
-
-
-
-            <div class="col-md-6">
-                <form action="actions.php" method="post" enctype="multipart/form-data">
-                <label class="form-label small fw-bold text-muted">Dosya Yükle</label>
-                <input type="file" name="file" class="form-select">
-                <button type="submit">YÜKLE</button>
-                <input type="hidden" name="action" value="addfile">
-                <input type="hidden" name="patient" value="<?=$patientid;?>">
-                <input type="hidden" name="request" value="<?=$requestid;?>">
-                </form>
-            </div>
-
              
           </div>
            

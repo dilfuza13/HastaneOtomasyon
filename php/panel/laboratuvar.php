@@ -24,46 +24,25 @@
 	<hr>
 		<div class="container">
 
-	<h2><?=$patient['name']?> - Detaylar</h2>
+	<h2>Tahliller Tetkikler</h2>
 	<hr>
 
 	<div class="row g-3">
-		<div class="col-md-6">
+
+		<div class="col-md-12">
 			
-			<form action="actions.php" method="post">
-				
-				<input type="text" name="tckno" value="<?=$patient['tckno']?>" placeholder="TCKNO">
-				<input type="text" name="name" value="<?=$patient['name']?>" placeholder="Hasta Adı">
-				<input type="email" name="email" value="<?=$patient['email']?>" placeholder="E-posta">
-				<input type="tel" name="phone" value="<?=$patient['phone']?>" placeholder="Telefon">
-				<input type="number" name="birthyear" value="<?=$patient['birthyear']?>" placeholder="Doğum Yılı">
-				<input type="submit" value="Kaydet">
-				<input type="hidden" name="action" value="updatepatient">
-				<input type="hidden" name="id" value="<?=$patientid?>">
-			</form>
 
-		</div>
-		<hr>
-		<div class="col-md-6">
-			
-			<form action="actions.php" method="post">
-				<input type="text" name="test" value="" placeholder="Test">
-				<input type="submit" value="Kaydet">
-				<input type="hidden" name="action" value="addtest">
-				<input type="hidden" name="patient" value="<?=$patientid?>">
-			</form>
-
-			<hr>
-
-			<h2>Tahlil Sonuçları</h2>
+			<h3>Sonuç Bekleyenler</h3>
 			<?PHP
-				$sql = $mysqli->query("SELECT * FROM laboratory_tests WHERE patient='$patientid'");
+				$sql = $mysqli->query("SELECT l.*, p.name  FROM laboratory_tests as l INNER JOIN patient p ON l.patient = p.id where l.status = '0'  ORDER BY id DESC");
 				if($sql->num_rows > 0){ ?>
 
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Test</th>
+							<th>Tarih</th>
+                            <th>Hasta Adı</th>
+							<th>Tahlil Türü</th>
 							<th>Sonuç</th>
 							<th>Durum</th>
 							<th>İşlem</th>
@@ -72,11 +51,65 @@
 					<tbody>
 						<?PHP
 						while($row = mysqli_fetch_assoc($sql)){?>
+                        <form action="actions.php" method="POST">
+                            <input type="hidden" name="action" value="addtestresult">
+                            <input type="hidden" name="id" value="<?=$row['id']?>">
 							<tr>
+								<td><?=$row['createdtime']?></td>
+								<td><a href="hasta.php?id=<?=$row['id']?>" target="_blank"><?=$row['name']?></a></td>
+								<td><?=$row['test']?></td>
+								<td>
+                                    <textarea name="result" id="result" cols="30" rows="10"><?=$row['result']?></textarea>
+                                </td>
+                                <td>
+                                    <select name="status" id="status">
+                                        <option value="0">Bekliyor</option>
+                                        <option value="1">Tamamlandı</option>
+                                    </select>
+                                </td>
+								<td><input type="submit" value="Kaydet"></td>
+							</tr>
+                        </form>
+						<?PHP } ?>
+					</tbody>
+				</table>
+					
+				<?PHP }else{
+					echo "Henüz laboratuvar sonucu bulunamadı.";
+				}
+			?>
+			
+		</div>
+
+        <hr>
+
+        <div class="col-md-12">
+			
+
+			<h3>Sonuç Çıkanlar</h3>
+			<?PHP
+				$sql = $mysqli->query("SELECT l.*, p.name  FROM laboratory_tests as l INNER JOIN patient p ON l.patient = p.id where l.status = '1'  ORDER BY id DESC");
+				if($sql->num_rows > 0){ ?>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Tarih</th>
+                            <th>Hasta Adı</th>
+							<th>Tahlil Türü</th>
+							<th>Sonuç</th>
+							<th>Durum</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?PHP
+						while($row = mysqli_fetch_assoc($sql)){?>
+							<tr>
+								<td><?=$row['createdtime']?></td>
+								<td><a href="hasta.php?id=<?=$row['id']?>" target="_blank"><?=$row['name']?></a></td>
 								<td><?=$row['test']?></td>
 								<td><?=$row['result']?></td>
-								<td><?=$row['status']?></td>
-								<td><form action='actions.php' method='post'><input type='hidden' name='id' value='<?=$row['id']?>'><input type='submit' value='Sil'></form></td>
+								<td><?=$row['status']? 'Tamamlandı':'Bekliyor'?></td>
 							</tr>
 						<?PHP } ?>
 					</tbody>

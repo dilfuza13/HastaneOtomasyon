@@ -35,20 +35,34 @@
 
 			<h2><?=$patient['name']?> - Detaylar</h2>
 			<hr>
-			<div class="col-md-6">
-				
-				<form action="actions.php" method="post">
-					
-					<input type="text" name="tckno" value="<?=$patient['tckno']?>" placeholder="TCKNO">
-					<input type="text" name="name" value="<?=$patient['name']?>" placeholder="Hasta Adı">
-					<input type="email" name="email" value="<?=$patient['email']?>" placeholder="E-posta">
-					<input type="tel" name="phone" value="<?=$patient['phone']?>" placeholder="Telefon">
-					<input type="number" name="birthyear" value="<?=$patient['birthyear']?>" placeholder="Doğum Yılı">
-					<input type="submit" value="Kaydet">
-					<input type="hidden" name="action" value="updatepatient">
-					<input type="hidden" name="id" value="<?=$patientid?>">
-				</form>
+			<div class="col-md-12">
 
+			<form action="actions.php" method="post">
+				<table class="table">
+
+				<tr>
+					<td>TCKNO</td>
+					<td>Hasta Adı</td>
+					<td>E-posta</td>
+					<td>Telefon</td>
+					<td>Doğum Yılı</td>
+					<td>İşlem</td>
+				</tr>
+				
+				
+					<tr>
+					<td><input type="text" name="tckno" value="<?=$patient['tckno']?>" placeholder="TCKNO"></td>
+					<td><input type="text" name="name" value="<?=$patient['name']?>" placeholder="Hasta Adı"></td>
+					<td><input type="email" name="email" value="<?=$patient['email']?>" placeholder="E-posta"></td>
+					<td><input type="tel" name="phone" value="<?=$patient['phone']?>" placeholder="Telefon"></td>
+					<td><input type="number" name="birthyear" value="<?=$patient['birthyear']?>" placeholder="Doğum Yılı"></td>
+					<td><input type="submit" value="Güncelle">
+						<input type="hidden" name="action" value="updatepatient">
+						<input type="hidden" name="id" value="<?=$patientid?>">
+					</td>
+					</tr>
+			
+				</table>	</form>
 			</div>
 		
 
@@ -56,7 +70,7 @@
 
 			<h2>Randevuları</h2>
 			<hr>
-			<div class="col-md-6">
+			<div class="col-md-12">
 
 			<?PHP
 				$query = "SELECT a.id, a.doctor, a.status, d.name as doctorname, a.timeslot, s.specialization 
@@ -76,6 +90,7 @@
 							<th>Poliklinik</th>
 							<th>Doktor</th>
 							<th>Durum</th>
+							<th>İşlem</th>
 							
 						</tr>
 					</thead>
@@ -87,7 +102,13 @@
 							<td><?=$row['timeslot']?></td>
 							<td><?=$row['specialization']?></td>
 							<td><?=$row['doctorname']?></td>
-							<td><?=$row['status']?></td>
+							<td><?=$row['status']?"Oluşturuldu":"İptal Edildi"?></td>
+							<?PHP if($row['status'] == "0"){
+							?>
+							<td><form action="actions.php" method="post"><input type="hidden" name="id" value="<?=$row['id']?>"><input type="hidden" name="action" value="deleteappointment"><input type="submit" value="İptal Et"></form></td>
+							<?PHP }else{?>
+								<td>-</td>
+							<?PHP }?>
 						</tr>
 						<?PHP } ?>
 					</tbody>
@@ -96,19 +117,18 @@
 			?>
 			</div>
 
-			
-			<div class="col-md-6">
-				<h2>Yeni Tahlil</h2>
+			<hr>
+
+			<div class="col-md-12">
+				<h2>Yeni Tahlil Talebi</h2>
 				<form action="actions.php" method="post">
-					<input type="text" name="test" value="" placeholder="Test">
+					<input type="text" name="test" value="" placeholder="Test adı...">
 					<input type="submit" value="Kaydet">
 					<input type="hidden" name="action" value="addtest">
 					<input type="hidden" name="patient" value="<?=$patientid?>">
-				</form>
+				</form>				
 
-				<hr>
-
-				<h2>Tahlil Sonuçları</h2>
+				<h3>Tahlil Sonuçları</h3>
 				<?PHP
 					$sql = $mysqli->query("SELECT * FROM laboratory_tests WHERE patient='$patientid'");
 					if($sql->num_rows > 0){ ?>
@@ -128,8 +148,18 @@
 								<tr>
 									<td><?=$row['test']?></td>
 									<td><?=$row['result']?></td>
-									<td><?=$row['status']?></td>
-									<td><form action='actions.php' method='post'><input type='hidden' name='id' value='<?=$row['id']?>'><input type='submit' value='Sil'></form></td>
+									<td><?=$row['status']?"Tamamlandı":"Bekliyor"?></td>
+									<?PHP if($row['status']=="0"){?>
+									<td>
+										<form action='actions.php' method='post'>
+											<input type='hidden' name='id' value='<?=$row['id']?>'>
+											<input type='hidden' name='action' value='deletetest'>
+											<input type='submit' value='Sil'>
+										</form>
+									</td>
+									<?PHP }else{?>
+										<td>-</td>
+									<?PHP }?>
 								</tr>
 							<?PHP } ?>
 						</tbody>
@@ -141,6 +171,52 @@
 				?>
 				
 			</div>
+
+			<hr>
+
+			<div class="col-md-12">
+				<h2>Yeni Dosya Yükle</h2>
+				<form action="actions.php" method="post" enctype="multipart/form-data">
+					<input type="text" name="title" placeholder="Dosya Adı" required>
+					<input type="file" name="file" required>
+					<input type="hidden" name="action" value="addfile">
+					<input type="hidden" name="patient" value="<?=$patientid?>">
+					<input type="submit" value="Kaydet">
+				</form>
+
+				<hr>
+
+				<h3>Yüklenen Dosyalar</h3>
+				<?PHP
+					$sql = $mysqli->query("SELECT * FROM uploads WHERE patient='$patientid'");
+					if($sql->num_rows > 0){ ?>
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Tarih</th>
+								<th>Dosyalar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?PHP
+							while($row = mysqli_fetch_assoc($sql)){?>
+								<tr>
+									<td><?=$row['createdtime']?></td>
+									<td><a href="../uploads/<?=$row['fileurl']?>" target="_blank"><?=$row['title'];?></a></td>
+								</tr>
+							<?PHP } ?>
+						</tbody>
+					</table>
+						
+					<?PHP }else{
+						echo "Henüz laboratuvar sonucu bulunamadı.";
+					}
+				?>
+				
+			</div>
+
+
 		</div>
 
 	</div>

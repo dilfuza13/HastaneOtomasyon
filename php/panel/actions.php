@@ -56,20 +56,6 @@ if($action=='adddoctor'){
     $check = mysqli_fetch_assoc($mysqli->query("SELECT id FROM doctor WHERE name='$name'"));
     if($check){ $_SESSION['alert'] = "Doktor zaten mevcut!"; header("Location:doktorlar.php"); exit; }
     
-    /*
-    // Fotoğraf İşlemi
-    $profilephoto = "placeholder.png"; 
-    if(isset($_FILES['profilephoto']) && $_FILES['profilephoto']['error'] == 0){
-        $target_dir = "../uploads/";
-        if (!file_exists($target_dir)) { mkdir($target_dir, 0777, true); }
-        $file_ext = pathinfo($_FILES["profilephoto"]["name"], PATHINFO_EXTENSION);
-        $new_name = time() . "_" . rand(1000,9999) . "." . $file_ext;
-        
-        if (move_uploaded_file($_FILES["profilephoto"]["tmp_name"], $target_dir . $new_name)) {
-            $profilephoto = $new_name;
-        }
-    }
-        */
 
     $sql = "INSERT INTO `doctor` (`name`, `specialization`, `description`, `phone`, `profilephoto`, `status`) 
             VALUES ('$name', '$specialization', '$description', '$phone', '$profilephoto', '1')";
@@ -232,4 +218,38 @@ if($action=="updatetest"){
     header("Location: hasta.php?id=$patient");
     exit;
 }
+
+if($action=="addtestresult"){
+    $id = p('id');
+    $result = p('result');
+    $status = p('status');
+
+    $mysqli->query("UPDATE `laboratory_tests` SET `result`='$result', `status`='$status' WHERE `id`='$id'");
+    
+    $_SESSION['alert'] = "Test sonucu güncellendi.";
+    header("Location: laboratuvar.php");
+    exit;
+}
+
+
+
+    if($action=="addfile"){        
+        $patient = p("patient");
+        $title = p("title");
+        $file = $_FILES["file"];
+
+        if($patient=="" || $title=="" || $file==""){echo "eksik veri"; exit;}
+
+        $fileurl = rand(00000, 99999)."-".rand(00000, 99999).$file["name"];
+        
+        if(!move_uploaded_file($file["tmp_name"], "../uploads/" . $fileurl)){echo "Dosya yüklenemedi"; exit;}
+
+        $mysqli->query("INSERT INTO uploads (patient, title, fileurl) VALUES ('$patient', '$title', '$fileurl')");
+
+        header("Location: hasta.php?id=$patient");
+
+        exit;
+
+    }
+
 ?>
