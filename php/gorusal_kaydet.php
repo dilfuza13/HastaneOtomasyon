@@ -14,6 +14,7 @@
     // Formdan gelen verileri alıyoruz
     $doctor       = p('doctor');
     $story        = p('story');
+    $message      = p('message');
 
     if(empty($doctor) || empty($story)){
         die("Bilgiler eksik veya hatalı! Lütfen tüm alanları seçtiğinizden emin olun. <a href='hesabim.php'>Geri Dön</a>");
@@ -23,6 +24,9 @@
     if(!$create){echo 'Requests Eklenemedi!'; exit;}
 
     $id = $mysqli->insert_id;
+
+    $create = $mysqli->query("insert into request_answers (request, sender, message, status) values('$id', '1', '$message', '0')");
+    if(!$create){echo 'Request Answers Eklenemedi!'; exit;}
 
     header("Location:talep.php?id=$id");
     exit;

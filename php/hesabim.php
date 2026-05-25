@@ -207,8 +207,8 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
                 <th>TARİH</th>
                 <th>POLİKLİNİK</th>
                 <th>DOKTOR</th>
-                <th>DETAY</th>
-                <th>CEVAP</th>
+                <th>BAŞLIK</th>
+                <th>MESAJ</th>
               </tr>
             </thead>
             <tbody>
@@ -225,7 +225,18 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
                     <td class="fw-bold text-dark"><a href="talep.php?id=<?=$rs['id'];?>"><?=$rs['createdtime'];?></a></td>
                     <td><span class="text-muted small"><?=$rs['kname'];?></span></td>
                     <td>Dr. <?=$rs['dname'];?></td>
-                    <td><?=$rs['story'];?></td>
+                    <td><a href="talep.php?id=<?=$rs['id'];?>"><?=$rs['story'];?></a></td>
+                  <td>
+                    <?PHP
+                    $request_id = $rs['id'];
+                  $yenimesaj = mysqli_num_rows($mysqli->query("SELECT * FROM request_answers WHERE request='$request_id' and sender='2' and status=0 "));
+                  if($yenimesaj==0){
+                    echo "<span class='badge bg-success'>Hepsi Görüldü</span>";
+                  }else{ 
+                    echo "<a class='badge bg-danger' href='talep.php?id=$request_id'>$yenimesaj Yeni Mesaj Var</a>";
+                  }    
+                    ?>
+                </td>
                   </tr>
                 <?PHP } 
               } else {

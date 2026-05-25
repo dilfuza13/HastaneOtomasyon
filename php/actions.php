@@ -44,9 +44,9 @@
         
         $patient = p("patient");
         $request = p("request");
-        $story = p("story");
+        $message = p("message");
 
-        if($patient=="" || $request=="" || $story==""){echo "Eksik veri"; exit;}
+        if($patient=="" || $request=="" || $message==""){echo "Eksik veri"; exit;}
 
         $reqeust = mysqli_fetch_assoc($mysqli->query("SELECT * FROM requests WHERE id='$request' and patient='$patient'"));
         if(!$reqeust){echo "Talep bulunamadı veya hatalı"; exit;}
@@ -54,9 +54,11 @@
         $date = new DateTime();
         //echo $date->format('Y-m-d H:i:s');
 
-        $newstory = $reqeust['story'] . "<br><small>" . $date->format('Y-m-d H:i:s') . "</small><br>" . $story;
+        $newstory = $reqeust['story'] . "<br><small>" . $date->format('Y-m-d H:i:s') . "</small><br>" . $message;
 
-        $mysqli->query("UPDATE requests SET story='$newstory', status='2' WHERE id='$request'");
+        //$mysqli->query("UPDATE requests SET story='$newstory', status='2' WHERE id='$request'");
+
+        $mysqli->query("INSERT INTO request_answers (request, sender, message, status) VALUES ('$request', '1', '$message', '0')");
 
         header("Location: $siteurl/talep.php?id=$request");
 

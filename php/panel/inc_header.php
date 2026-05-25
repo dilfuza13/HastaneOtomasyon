@@ -1,3 +1,6 @@
+<?PHP
+$yeni_mesaj = mysqli_num_rows($mysqli->query("SELECT id FROM request_answers WHERE sender='1' and status = '0'"));
+?>
 	<header class="p-3 text-bg-dark">
 		<div class="container">
 			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -8,10 +11,12 @@
 				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 					<li><a href="randevular.php" class="nav-link px-2 text-white">Randevular</a></li>	
 					<li><a href="hastalar.php" class="nav-link px-2 text-white">Hastalar</a></li>
+					<li><a href="talepler.php" class="nav-link px-2 text-white">Talepler <?php if($yeni_mesaj > 0){ echo "<span class='badge text-bg-danger'>$yeni_mesaj</span>"; } ?> </a></li>
 					<li><a href="slotlar.php" class="nav-link px-2 text-white">Slotlar</a></li>
 					<li><a href="doktorlar.php" class="nav-link px-2 text-white">Doktorlar</a></li>
 					<li><a href="uzmanliklar.php" class="nav-link px-2 text-white">Uzmanlıklar</a></li>
 					<li><a href="laboratuvar.php" class="nav-link px-2 text-white">Laboratuvar</a></li>
+					
 					
 					<li><a href="personel.php" class="nav-link px-2 text-white">Personel</a></li>
 					<li><a href="logout.php" class="nav-link px-2 text-white">Çıkış</a></li>

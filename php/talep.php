@@ -94,11 +94,55 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
           
 
             <div class="col-md-12">
-                <label class="form-label small fw-bold text-muted">Derdiniz</label>
+                <label class="form-label small fw-bold text-muted">Konu Başlığı</label>
                 <h5 class="fw-bold"><?PHP echo $r['story'];?></h5>
             </div>
 
+            <div class="col-md-12">
+<table class="table table-striped">
+  <thead>
+  <tr>
+     <th>Tarih</th>
+      <th>Gönderen</th>
+    <th>Mesaj</th>
+    <th>Durum</th>
+  </tr>
+  </thead>
+  <tbody>
+  <?PHP
+              $messagequery = $mysqli->query("select * from request_answers where request='$requestid'");
+              while ($m = mysqli_fetch_assoc($messagequery)) { ?>
+              <tr>
+                <td><?PHP echo $m['createdtime'];?></td>
+                <td><?PHP echo $m['sender'] == '1' ? 'Hasta' : 'Doktor';?></td>
+                <td><?PHP echo $m['message'];?></td>
+                <td><?PHP echo $m['status'] == '0' ? 'Yeni' : 'Görüldü';?></td>
+              </tr>
+              
+          <?PHP } ?>
+          </tbody>
+            </table>
+
             </div>
+
+
+
+            <hr>
+          <div class="row g-3">
+
+            <div class="col-md-6">
+                <form action="actions.php" method="post">
+                   
+                <label class="form-label small fw-bold text-muted">Cevap yaz</label>
+                <textarea name="message" required class="form-select" placeholder="Eklemek istediğiniz bir şey var mı?..."></textarea>
+                <button type="submit">KAYDET</button>
+                <input type="hidden" name="action" value="addstory">
+                 <input type="hidden" name="patient" value="<?=$patientid;?>">
+                    <input type="hidden" name="request" value="<?=$requestid;?>">
+                </form>
+            </div>
+             
+          </div>
 
             <hr>
           <div class="row g-3">
@@ -118,22 +162,12 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
 
             </div>
 
-            <hr>
-          <div class="row g-3">
 
-            <div class="col-md-6">
-                <form action="actions.php" method="post">
-                   
-                <label class="form-label small fw-bold text-muted">Ekleme Yap</label>
-                <textarea name="story" required class="form-select" placeholder="Eklemek istediğiniz bir şey var mı?..."></textarea>
-                <button type="submit">KAYDET</button>
-                <input type="hidden" name="action" value="addstory">
-                 <input type="hidden" name="patient" value="<?=$patientid;?>">
-                    <input type="hidden" name="request" value="<?=$requestid;?>">
-                </form>
-            </div>
-             
-          </div>
+  <?PHP 
+    // TÜM MESAJLARI OKUNDU OLARKA İŞARETLİYORUZ
+    $mysqli->query("UPDATE request_answers SET status='1' WHERE request='$requestid' and sender='2'");   
+  ?>
+
            
           </div>
       </div>

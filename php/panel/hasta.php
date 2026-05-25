@@ -153,6 +153,7 @@
 									<td>
 										<form action='actions.php' method='post'>
 											<input type='hidden' name='id' value='<?=$row['id']?>'>
+											<input type='hidden' name='patient' value='<?=$patientid?>'>
 											<input type='hidden' name='action' value='deletetest'>
 											<input type='submit' value='Sil'>
 										</form>

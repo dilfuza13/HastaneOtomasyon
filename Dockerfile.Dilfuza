@@ -1,0 +1,14 @@
+#base image
+FROM php:8.2-apache
+
+#RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install mysqli
+
+#set working directory
+WORKDIR /var/www/html
+
+#copy
+COPY ./php/ .
+
+#exposing
+EXPOSE 80

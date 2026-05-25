@@ -11,6 +11,28 @@ if (!function_exists('p')) {
 
 $action = $_POST['action'] ?? '';
 
+
+if($action=='addmessage'){
+    $requestid = p('request');
+    $message = p('message');
+    $sender = '2'; // Doktor
+    $status = '0'; // Yeni
+
+    $result = $mysqli->query("INSERT INTO `request_answers` (`request`, `sender`, `message`, `status`) VALUES ('$requestid', '$sender', '$message', '$status')");
+
+    if($result) { 
+        $_SESSION['alert'] = "Mesaj Gönderildi"; 
+        header("Location:talep.php?id=$requestid"); 
+        exit; 
+    }else{
+        $_SESSION['alert'] = "Mesaj Gönderilemedi!"; 
+        header("Location:talep.php?id=$requestid"); 
+        exit; 
+    }
+}
+
+
+
 // --- SLOT AYARLAMA ---
 if($action=="setslot"){
     $doctor     = $_POST['doctor'];
@@ -202,6 +224,15 @@ if($action=="addtest"){
     $mysqli->query("INSERT INTO `laboratory_tests` (`patient`, `test`, `result`, `status`) VALUES ('$patient', '$test', '$result', '0')");
     
     $_SESSION['alert'] = "Test eklendi.";
+    header("Location: hasta.php?id=$patient");
+    exit;
+}
+
+if($action=="deletetest"){
+    $id = p('id');
+    $patient= p('patient');
+    $mysqli->query("DELETE FROM laboratory_tests WHERE `id` = '$id'");
+    $_SESSION['alert'] = "Test silindi.";
     header("Location: hasta.php?id=$patient");
     exit;
 }

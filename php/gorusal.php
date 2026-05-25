@@ -101,8 +101,13 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
             </div>
 
             <div class="col-md-12">
-                <label class="form-label small fw-bold text-muted">Derdini Yaz</label>
-                <textarea name="story" required class="form-select"></textarea>
+                <label class="form-label small fw-bold text-muted">Konu Başlığı</label>
+                <input type="text" name="story" required class="form-select">
+            </div>
+
+            <div class="col-md-12">
+                <label class="form-label small fw-bold text-muted">Mesajınız</label>
+                <textarea name="message" required class="form-select"></textarea>
             </div>
 
              <div class="col-md-4">
