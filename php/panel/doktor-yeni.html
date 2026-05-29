@@ -110,13 +110,13 @@
 
           <!-- SİL -->
           <form
-            action="actions.php"
+            action="islemler.php"
             method="post"
             class="delete-form"
             onsubmit="return confirm('Doktor Malahat Karimova kaydını silmek istediğinize emin misiniz?');"
           >
             <button type="submit" class="btn btn-danger btn-sm">SİL</button>
-            <input type="hidden" name="action" value="deletedoctor">
+            <input type="hidden" name="islem" value="deletedoctor">
             <input type="hidden" name="id" value="2">
           </form>
         </div>
@@ -127,7 +127,7 @@
 </div>
 
 <!-- DÜZENLE FORMU -->
-<form action="actions.php" method="post" class="edit-form">
+<form action="islemler.php" method="post" class="edit-form">
   <input type="text" name="doctorname" value="Malahat Karimova">
   <input type="email" name="doctormail" value="malahat@karimova.com">
   <input type="password" name="password" value="12345">
@@ -136,7 +136,7 @@
 
   <button type="submit" class="btn btn-primary">DÜZENLE</button>
 
-  <input type="hidden" name="action" value="editdoctor">
+  <input type="hidden" name="islem" value="doktorudenle">
   <input type="hidden" name="id" value="2">
 </form>
 

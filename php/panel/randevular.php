@@ -1,11 +1,11 @@
 <?PHP
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 
 ?>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title><?=_SiteName;?></title>
+		<title><?=_SiteAdi;?></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -17,7 +17,7 @@
 
 
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
-	<?PHP include("inc_header.php");?>
+	<?PHP include("navbar.php");?>
 
 	<hr>
 
@@ -62,7 +62,7 @@ $result = $mysqli->query($myQuery);
 		<tbody>
 <?PHP
 $doctor = g('doctor');
-$myQuery = "select a.*, p.name as p_name, s.specialization, d.name as d_name from appointment as a
+$myQuery = "select a.*, p.id as p_id, p.name as p_name, s.specialization, d.name as d_name from appointment as a
 				inner join patient as p on p.id=a.patient
 				inner join doctor as d on d.id=a.doctor
 				inner join specialization as s on s.id=d.specialization
@@ -75,7 +75,7 @@ $result = $mysqli->query($myQuery);
 			<tr>
 				<th scope="row"><?=$rs['id'];?></th>
 				<td><?=$rs['timeslot'];?></td>
-				<td><?=$rs['p_name'];?></td>
+				<td><a href="hasta.php?id=<?=$rs['p_id'];?>" target="_blank"><?=$rs['p_name'];?></a></td>
 				<td><?=$rs['specialization'];?></td>
 				<td><?=$rs['d_name'];?></td>
 				<td><?=$rs['status']?"AKTİF":"PASİF";?></td>

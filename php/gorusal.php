@@ -1,6 +1,6 @@
 <?PHP 
 ob_start();
-include('inc_config.php');
+include('ayarlar.php');
 
 if(!isset($_SESSION['patient']['id'])){
     header("Location: index.php");
@@ -43,7 +43,7 @@ $pInfo = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$pat
 </head>
 <body>
 
-<?PHP include('inc_header.php');?>
+<?PHP include('navbar.php');?>
 
 <div class="container mb-5">
   

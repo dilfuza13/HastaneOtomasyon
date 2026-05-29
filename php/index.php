@@ -1,4 +1,4 @@
-<?PHP include('inc_config.php');?>
+<?PHP include('ayarlar.php');?>
 <!doctype html>
 <html lang="tr">
 <head>
@@ -90,7 +90,7 @@
 
 <body>
 
-<?PHP include('inc_header.php');?>
+<?PHP include('navbar.php');?>
 <div class="container">
   <div class="hero text-center">
     <h1 class="m-0 fw-bold">Web Sitemize Hoş Geldiniz</h1>

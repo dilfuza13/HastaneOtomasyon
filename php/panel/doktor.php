@@ -1,5 +1,5 @@
 <?PHP
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 
 	$id = $_GET['id'];
 
@@ -20,7 +20,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title><?=_SiteName;?></title>
+		<title><?=_SiteAdi;?></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -32,13 +32,9 @@
 
 
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
-	<?PHP include("inc_header.php");?>
+	<?PHP include("navbar.php");?>
 
 	<hr>
-
-	<?PHP if(isset($_SESSION['alert'])){?>
-	<div class="alert alert-success" role="alert"> <?=$_SESSION['alert'];?> </div>
-	<?PHP unset($_SESSION['alert']); } ?>
 
 	<div class="container my-5">
 
@@ -60,7 +56,7 @@
 						Bilgileri Düzenle
 					</h5>
 					
-					<form action="actions.php" method="post">
+					<form action="islemler.php" method="post">
 						<div class="row g-4">
 							<div class="col-md-6">
 								<div class="form-floating">
@@ -106,7 +102,7 @@
 							</div>
 
 							<div class="col-12 mt-5 text-end">
-								<input type="hidden" name="action" value="editdoctor">
+								<input type="hidden" name="islem" value="doktorudenle">
 								<input type="hidden" name="id" value="<?=$doctor['id'];?>">
 								<button type="submit" class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded-pill shadow custom-save-btn d-inline-flex align-items-center gap-2">
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
@@ -142,11 +138,11 @@
 				</div>
 				<div class="card-body p-4">
 					<h6 class="card-title fw-bold text-secondary mb-3">Fotoğrafı Güncelle</h6>
-					<form action="actions.php" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
+					<form action="islemler.php" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
 						<div class="mb-3 w-100">
 							<input type="file" class="form-control form-control-sm bg-light" name="fileToUpload" id="fileToUpload" required>
 						</div>
-						<input type="hidden" name="action" value="editdoctorprofilephoto">
+						<input type="hidden" name="islem" value="doktorprofilfotoduzenle">
 						<input type="hidden" name="id" value="<?=$doctor['id'];?>">
 						<button type="submit" class="btn btn-outline-primary fw-bold rounded-pill px-4 w-100 d-inline-flex justify-content-center align-items-center gap-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">

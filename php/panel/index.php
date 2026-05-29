@@ -1,5 +1,5 @@
 <?PHP
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 	$name = "Dilfuza";
 
 	if(!isset($_SESSION['user']) || !$_SESSION['user']['login']){header("Location:login.php"); exit;}
@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title><?=_SiteName;?></title>
+		<title><?=_SiteAdi;?></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -18,7 +18,7 @@
 	<body>
 
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
-	<?PHP include("inc_header.php");?>
+	<?PHP include("navbar.php");?>
 
 	<div class="container">
 		<h2>ANA SAYFA</h2>

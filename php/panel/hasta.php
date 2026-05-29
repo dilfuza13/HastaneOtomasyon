@@ -1,5 +1,5 @@
 <?PHP
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 
 	if(!isset($_GET['id'])){
 		header("Location: hastalar.php");
@@ -16,7 +16,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title><?=_SiteName;?></title>
+		<title><?=_SiteAdi;?></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -28,7 +28,7 @@
 	
 	
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
-	<?PHP include("inc_header.php");?>
+	<?PHP include("navbar.php");?>
 
 	<hr>
 		<div class="container">
@@ -37,7 +37,7 @@
 			<hr>
 			<div class="col-md-12">
 
-			<form action="actions.php" method="post">
+			<form action="islemler.php" method="post">
 				<table class="table">
 
 				<tr>
@@ -57,7 +57,7 @@
 					<td><input type="tel" name="phone" value="<?=$patient['phone']?>" placeholder="Telefon"></td>
 					<td><input type="number" name="birthyear" value="<?=$patient['birthyear']?>" placeholder="Doğum Yılı"></td>
 					<td><input type="submit" value="Güncelle">
-						<input type="hidden" name="action" value="updatepatient">
+						<input type="hidden" name="islem" value="hastaduzenle">
 						<input type="hidden" name="id" value="<?=$patientid?>">
 					</td>
 					</tr>
@@ -105,7 +105,7 @@
 							<td><?=$row['status']?"Oluşturuldu":"İptal Edildi"?></td>
 							<?PHP if($row['status'] == "0"){
 							?>
-							<td><form action="actions.php" method="post"><input type="hidden" name="id" value="<?=$row['id']?>"><input type="hidden" name="action" value="deleteappointment"><input type="submit" value="İptal Et"></form></td>
+							<td><form action="islemler.php" method="post"><input type="hidden" name="id" value="<?=$row['id']?>"><input type="hidden" name="islem" value="deleteappointment"><input type="submit" value="İptal Et"></form></td>
 							<?PHP }else{?>
 								<td>-</td>
 							<?PHP }?>
@@ -121,10 +121,10 @@
 
 			<div class="col-md-12">
 				<h2>Yeni Tahlil Talebi</h2>
-				<form action="actions.php" method="post">
-					<input type="text" name="test" value="" placeholder="Test adı...">
+				<form action="islemler.php" method="post">
+					<input type="text" name="test" placeholder="Test adı..." required>
 					<input type="submit" value="Kaydet">
-					<input type="hidden" name="action" value="addtest">
+					<input type="hidden" name="islem" value="testiste">
 					<input type="hidden" name="patient" value="<?=$patientid?>">
 				</form>				
 
@@ -151,10 +151,10 @@
 									<td><?=$row['status']?"Tamamlandı":"Bekliyor"?></td>
 									<?PHP if($row['status']=="0"){?>
 									<td>
-										<form action='actions.php' method='post'>
+										<form action='islemler.php' method='post'>
 											<input type='hidden' name='id' value='<?=$row['id']?>'>
 											<input type='hidden' name='patient' value='<?=$patientid?>'>
-											<input type='hidden' name='action' value='deletetest'>
+											<input type='hidden' name='action' value='testsil'>
 											<input type='submit' value='Sil'>
 										</form>
 									</td>
@@ -177,10 +177,10 @@
 
 			<div class="col-md-12">
 				<h2>Yeni Dosya Yükle</h2>
-				<form action="actions.php" method="post" enctype="multipart/form-data">
+				<form action="islemler.php" method="post" enctype="multipart/form-data">
 					<input type="text" name="title" placeholder="Dosya Adı" required>
 					<input type="file" name="file" required>
-					<input type="hidden" name="action" value="addfile">
+					<input type="hidden" name="islem" value="dosyayukle">
 					<input type="hidden" name="patient" value="<?=$patientid?>">
 					<input type="submit" value="Kaydet">
 				</form>

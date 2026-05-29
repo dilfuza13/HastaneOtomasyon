@@ -1,5 +1,5 @@
 <?PHP
-    require_once("inc_config.php");
+    require_once("ayarlar.php");
     require_once("smtp/PHPMailerAutoload.php");
 
 

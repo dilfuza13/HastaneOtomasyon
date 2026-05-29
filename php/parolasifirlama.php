@@ -1,6 +1,6 @@
 <?PHP
 
-    include('inc_config.php');
+    require_once("ayarlar.php");
 
     $email = g('email');
     $resetcode = g('resetcode');

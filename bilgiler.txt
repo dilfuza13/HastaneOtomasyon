@@ -1,0 +1,48 @@
+
+Veri Tabanı İşlemleri yaptım (CRUD)
+----------------------------------------
+# Ekleme (Create / insert) > "daha önce eklenmiş mi" diye kontrol ettim. eklenmemişse ekledim, eklenip eklenmediğini kontrol ettim
+# Güncelleme (Update) > güncellenip güncellenmediğini kontrol ettim
+# Silme (Delete)
+# Seçme (Select / Read)
+# Listeleme (Select / Read)
+
+işlemlerden önce "MySQL injection" önlemi için verileri p() g() fonksiyonları ile temizledim
+
+tüm Insert, Update, Delete işlemlerini "islemler.php" de toplayıp düzenli ve kontrollü hale getirdim. işlemlerden üye girişini kontrol ettirdim
+sadece "üyelik" işlemlerini harici dosyalarda tuttum
+
+VeriTabanı tablo yapısında UNIQUE kullanarak önemli bilgilerle tekrarlı kayıt olmasını engelledim.
+tekrarlı kayıt kontrolünü yazılım (PHP) tarafında yapmış olsam da DB tarafında da UNIQUE kullanarak engelledim.
+
+
+Dosya işlemleri
+----------------------------------------
+move_uploaded_file(); ile dosya upload işlemi yaptım
+
+
+Mail İşlemleri
+----------------------------------------
+SMTP ile mail gönderimi yaptım, ancak mail sistemleri gerçek sunucuda detaylı çalıştığı için localde (DOCKER'da) aktif etmedim.
+
+
+Backend (PHP Kodları)
+----------------------------------------
+- ortak kullanılan işlemleri/kodları tek bir yerde topladım "ayarlar.php"
+require_once("../ayarlar.php"); ile birçok yerden çağırabildim "require, include, require_once, include_once" ne işe yaradığını öğrendim
+MySQL injection önlemi için kendi fonksyionlarımı oluşturdum
+p() $_POST ile gelen verileri alıp temizliyor
+g() $_GET ile gelen verileri alıp temizliyor
+
+
+
+
+
+Forntend (Kullanıcı Arayüzü) (burayı AI yazdır :D :D :D )
+----------------------------------------
+Bootstrap 5 ile daha şık ve modern bir arayüz oluşturdum.
+güncel ve modern bir görünüm için butonları, formları, tabloları vb. iyileştirdim
+giriş yap, kaydol, şifremi unuttum sayfalarını oluşturdum
+CSS kodlarını düzenledim
+Bootstrap 5, JavaScript ve AJAX kullanarak kullanıcı deneyimini geliştirdim
+Responsive tasarım ile tüm cihazlarda uyumlu hale getirdim

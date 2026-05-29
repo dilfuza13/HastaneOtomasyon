@@ -1,5 +1,5 @@
 <?PHP
-require_once("inc_config.php");
+require_once("ayarlar.php");
 
 $doctor_id = $_GET['doctor'] ?? null;
 

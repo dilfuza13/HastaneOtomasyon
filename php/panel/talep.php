@@ -1,5 +1,5 @@
 <?PHP
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 
 
 if(!isset($_GET['id'])){header("Location: talepler.php"); exit;}
@@ -19,7 +19,7 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title><?=_SiteName;?></title>
+		<title><?=_SiteAdi;?></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -31,7 +31,7 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
 	
 	
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
-	<?PHP include("inc_header.php");?>
+	<?PHP include("navbar.php");?>
 
 	<hr>
 		<div class="container">
@@ -76,12 +76,12 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
           <div class="row g-3">
 
             <div class="col-md-6">
-                <form action="actions.php" method="post">
+                <form action="islemler.php" method="post">
                    
                 <label class="form-label small fw-bold text-muted">Cevap yaz</label>
                 <textarea name="message" required class="form-select" placeholder="Eklemek istediğiniz bir şey var mı?..."></textarea>
                 <button type="submit">KAYDET</button>
-                <input type="hidden" name="action" value="addmessage"> 
+                <input type="hidden" name="islem" value="addmessage"> 
                 <input type="hidden" name="request" value="<?=$id;?>">
                 </form>
             </div>

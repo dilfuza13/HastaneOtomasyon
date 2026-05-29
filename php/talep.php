@@ -1,5 +1,5 @@
 <?PHP 
-include('inc_config.php');
+include('ayarlar.php');
 
 if(!isset($_SESSION['patient']['id'])){header("Location: index.php");  exit;}
 $patientid = $_SESSION['patient']['id'];
@@ -49,7 +49,7 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
 </head>
 <body>
 
-<?PHP include('inc_header.php');?>
+<?PHP include('navbar.php');?>
 
 <div class="container mb-5">
   
@@ -131,12 +131,12 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
           <div class="row g-3">
 
             <div class="col-md-6">
-                <form action="actions.php" method="post">
+                <form action="islemler.php" method="post">
                    
                 <label class="form-label small fw-bold text-muted">Cevap yaz</label>
                 <textarea name="message" required class="form-select" placeholder="Eklemek istediğiniz bir şey var mı?..."></textarea>
                 <button type="submit">KAYDET</button>
-                <input type="hidden" name="action" value="addstory">
+                <input type="hidden" name="islem" value="addstory">
                  <input type="hidden" name="patient" value="<?=$patientid;?>">
                     <input type="hidden" name="request" value="<?=$requestid;?>">
                 </form>

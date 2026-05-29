@@ -1,4 +1,4 @@
-<?PHP include('inc_config.php');?>
+<?PHP include('ayarlar.php');?>
 <!doctype html>
 <html lang="tr">
 <head>
@@ -93,7 +93,7 @@
 <!-- =====================
      NAVBAR (AYNI)
 ===================== -->
-<?PHP include('inc_header.php');?>
+<?PHP include('navbar.php');?>
 
 
 

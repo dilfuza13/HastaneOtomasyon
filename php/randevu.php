@@ -1,5 +1,5 @@
 <?PHP 
-include('inc_config.php');
+include('ayarlar.php');
 
 // Veritabanından uzmanlıkları çekelim
 $specializations = $mysqli->query("SELECT * FROM specialization");

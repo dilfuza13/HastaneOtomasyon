@@ -1,5 +1,5 @@
 <?PHP
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 
 	if(isset($_SESSION['user']) && isset($_SESSION['user']['id']) && isset($_SESSION['user']['login'])){$_SESSION['alert'] = ['primary' => 'Giriş yapılmış...']; header("Location:index.php"); exit;}
 ?>
@@ -7,7 +7,7 @@
 <html lang="tr">
 	<head>
 		<meta charset="utf-8">
-		<title><?=_SiteName;?></title>
+		<title><?=_SiteAdi;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="shortcut icon" href="login-logo.png" />
 		<link href="login.css" rel="stylesheet" />
@@ -17,7 +17,7 @@
 
 		<form action="logincheck.php" method="post" class="form-signin text-center">
 			<img class="mb-4" src="login-logo.png" alt="" width="250" height="250">
-			<h1 class="h3 mb-3 font-weight-normal"><?=_SiteName;?></h1>
+			<h1 class="h3 mb-3 font-weight-normal"><?=_SiteAdi;?></h1>
 			<div>
 				<?PHP if(isset($_SESSION['alert'])){?>
 				<div class="alert alert-danger" role="alert"><?=$_SESSION['alert']['warning'];?></div>
@@ -35,7 +35,7 @@
 
 			<p class="mt-5 mb-3 text-muted">&copy; <?=_CopyRight;?></p>
 
-			<input type="hidden" name="action" value="giriskontrol" />
+			<input type="hidden" name="islem" value="giriskontrol" />
 			<input type="hidden" name="recaptchaToken" id="recaptchaToken">
 		</form>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />

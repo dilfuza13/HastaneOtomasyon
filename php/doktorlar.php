@@ -1,4 +1,4 @@
-<?PHP require_once("inc_config.php"); ?>
+<?PHP require_once("ayarlar.php"); ?>
 <!doctype html>
 <html lang="tr">
 <head>
@@ -36,7 +36,7 @@
 </head>
 <body>
 
-<?PHP if(file_exists('inc_header.php')) { include('inc_header.php'); } ?>
+<?PHP if(file_exists('navbar.php')) { include('navbar.php'); } ?>
 
 <div class="container">
   <!-- Hero Alanı -->

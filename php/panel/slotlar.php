@@ -1,5 +1,5 @@
 <?PHP
-    require_once("../inc_config.php");
+    require_once("../ayarlar.php");
     $doctor = $_GET['doctor'] ?? null;
 
     if($doctor){
@@ -27,7 +27,7 @@
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
-    <title>Slot Yönetimi - <?=_SiteName;?></title>
+    <title>Slot Yönetimi - <?=_SiteAdi;?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .table td { vertical-align: middle; }
@@ -37,7 +37,7 @@
 </head>
 <body class="bg-light">
 
-<?PHP include("inc_header.php");?>
+<?PHP include("navbar.php");?>
 
 <div class="container mt-4">
     <div class="card shadow-sm p-4">
@@ -86,13 +86,13 @@
                             $disabled = ($status == 2) ? "disabled" : ""; // Randevu alınmışsa sekreter değiştiremez
                         ?>
                         <td>
-                            <form action="actions.php" method="post" class="m-0">
+                            <form action="islemler.php" method="post" class="m-0">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" name="slotstatus" 
                                            onchange="this.form.submit();" value="1" 
                                            <?=$checked;?> <?=$disabled;?>>
                                 </div>
-                                <input type="hidden" name="action" value="setslot">
+                                <input type="hidden" name="islem" value="slotayarla">
                                 <input type="hidden" name="doctor" value="<?=$doctor;?>">
                                 <input type="hidden" name="timeslot" value="<?=$fullTime;?>">
                             </form>

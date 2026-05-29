@@ -1,10 +1,10 @@
 <?PHP
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 ?>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title><?=_SiteName;?></title>
+		<title><?=_SiteAdi;?></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -15,13 +15,13 @@
 	<body>
 
 	<!-- her sayfada aynı olacak olan "header"ı tek bir yerde tanımlayıp include ediyoruz -->
-	<?PHP include("inc_header.php");?>
+	<?PHP include("navbar.php");?>
 
 		<div class="container">
 			<h2>PERSONEL</h2>
 
 			<hr>
-			<form action="actions.php" method="post">
+			<form action="islemler.php" method="post">
 			<div class="row">
 
 				<div class="col col-md-2">
@@ -39,7 +39,7 @@
 				<div class="col col-md-2">
 					<button type="submit" class="btn btn-success">EKLE</button>
 				</div>
-				<input type="hidden" name="action" value="adduser">
+				<input type="hidden" name="islem" value="adduser">
 
 			</div>
 			</form>
@@ -66,7 +66,7 @@
 
 		<?PHP while($rs = mysqli_fetch_array($result)){?>
 
-				<form action="actions.php" method="post">
+				<form action="islemler.php" method="post">
 					<tr>
 						<th scope="row"><?=$rs['id'];?></th>
 						<td><input type="text" name="name" placeholder="Personel..." maxlength="50" required value="<?=$rs['name'];?>" class="form-control"></td>
@@ -75,7 +75,7 @@
 						<td><button type="submit" class="btn btn-success">KAYDET</button></td>
 						<td><?=$rs['createdtime'];?></td>
 					</tr>
-					<input type="hidden" name="action" value="edituser">
+					<input type="hidden" name="islem" value="edituser">
 					<input type="hidden" name="id" value="<?=$rs['id'];?>">
 				</form>
 		<?PHP } ?>

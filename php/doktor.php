@@ -1,4 +1,4 @@
-<?PHP include('inc_config.php');?>
+<?PHP include('ayarlar.php');?>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -73,11 +73,11 @@ color: #999;
                             <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
                         <!-- Split button -->
 
-                        <form action="actions.php" method="post" onsubmit="return confirm('Doktor Malahat Karimova kaydını silmek istediğinize emin misiniz?');">
+                        <form action="islemler.php" method="post" onsubmit="return confirm('Doktor Malahat Karimova kaydını silmek istediğinize emin misiniz?');">
                          <div class="btn-group">
                             <button type="submit" class="btn btn-danger">SİL</button>                           
                         </div>
-                        <input type="hidden" name="action" value="deletedoctor">
+                        <input type="hidden" name="islem" value="deletedoctor">
                         <input type="hidden" name="id" value="2">
                         </form>
                        
@@ -93,14 +93,14 @@ color: #999;
 
 
 
-<form action="actions.php" method="post">
+<form action="islemler.php" method="post">
     <input type="text" name="doctorname" id="doctorname" require placeholder="Doktor ismi..." value="Malahat Karimova" ><br>
     <input type="mail" name="doctormail" id="doctormail" require placeholder="Doktor e-posta..." value="malahat@karimova.com" ><br>
     <input type="password" name="password" id="password" require placeholder="Doktor parola..." value="12345" ><br> <!-- parola hassasiyetini şimdilik görmezden geliyoruz  -->
     <input type="phone" name="phone" id="phone" require placeholder="Doktor telefon..." value="1234567" ><br>
     <input type="text" name="description" id="description" require placeholder="Doktor hakkında..." value="çok iyi kalpli bir kadın" ><br>
     <button type="submit" class="btn btn-primary">DÜZENLE</button>                    
-    <input type="hidden" name="action" value="editdoctor">
+    <input type="hidden" name="islem" value="doktorudenle">
     <input type="hidden" name="id" value="2">
 </form>
 

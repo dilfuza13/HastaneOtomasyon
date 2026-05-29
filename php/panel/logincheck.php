@@ -1,24 +1,19 @@
 <?PHP
 
 	//önemli ayarları getirdik (veritabanı, configuration, functions)
-	require_once("../inc_config.php");
+	require_once("../ayarlar.php");
 
-	//kullanıcı giriş yapmışsa, doğrudan anasayfaya yönlendiriyoruz
+	//kullanıcı zaten giriş yapmışsa, doğrudan anasayfaya yönlendiriyoruz
 	if(isset($_SESSION['user']) && $_SESSION['user']['login']==true){
 		header("location:index.php");
 		exit;
 	}
 
-	//POST ile gönderim koruması eklendi
-	if($_SERVER["REQUEST_METHOD"] != "POST"){
-		header("Location:logout.php");
-		exit;
-	}
 
 	$username	= p('username');
 	$password	= p('password');
 
-	if($username == '' || $username == null || $password == '' || $password == null){
+	if(empty($username) || empty($password)){
 		$_SESSION['alert']['warning'] = 'BİLGİLER EKSİK!';
 		header("Location:login.php");
 		exit;

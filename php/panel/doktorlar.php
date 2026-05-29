@@ -1,11 +1,11 @@
 <?PHP
-require_once("../inc_config.php");
+require_once("../ayarlar.php");
 ?>
 <!doctype html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
-    <title><?=_SiteName;?> - Doktor Yönetimi</title>
+    <title><?=_SiteAdi;?> - Doktor Yönetimi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -31,7 +31,7 @@ require_once("../inc_config.php");
 </head>
 <body>
 
-    <?PHP if(file_exists('inc_header.php')) { include("inc_header.php"); } ?>
+    <?PHP if(file_exists('navbar.php')) { include("navbar.php"); } ?>
     <hr>
 
     <div class="container mb-5">
@@ -45,7 +45,7 @@ require_once("../inc_config.php");
         <!-- YENİ DOKTOR EKLEME FORMU -->
         <div class="card admin-card border-0 mb-5">
             <div class="card-body p-4">
-                <form action="actions.php" method="POST" class="row g-3 align-items-end">
+                <form action="islemler.php" method="POST" class="row g-3 align-items-end">
                     <div class="col-lg-3 col-md-6">
                         <span class="label-style">AD SOYAD</span>
                         <input type="text" name="name" class="form-control input-minimal" placeholder="Dr. Adı Soyadı" required>
@@ -70,7 +70,7 @@ require_once("../inc_config.php");
                     <div class="col-lg-2 text-end">
                         <button type="submit" name="ekle" class="btn btn-primary btn-round w-100">KAYDET</button>
                     </div>
-                    <input type="hidden" name="action" value="adddoctor">
+                    <input type="hidden" name="islem" value="doktorekle">
                 </form>
             </div>
         </div>
@@ -108,7 +108,7 @@ require_once("../inc_config.php");
             $i++;
         ?>
         <div class="doctor-row shadow-sm">
-            <form action="actions.php" method="POST" class="d-flex align-items-center w-100 gap-3">
+            <form action="islemler.php" method="POST" class="d-flex align-items-center w-100 gap-3">
                 <input type="hidden" name="id" value="<?=$row['id'];?>">
                 
                 <!-- Doktor Profil Resmi -->
@@ -154,7 +154,7 @@ require_once("../inc_config.php");
                 <div style="flex: 0.8;">
                     <button type="submit" name="guncelle" class="btn btn-outline-primary btn-round w-100">KAYDET</button>
                 </div>
-                <input type="hidden" name="action" value="editdoctorfast">
+                <input type="hidden" name="islem" value="doktorduzenlehizli">
             </form>
         </div>
         <?PHP } ?>

@@ -1,6 +1,6 @@
 <?PHP
     ob_start(); // Çıktı tamponlamayı başlat (Hataları önler)
-    require_once("inc_config.php");
+    require_once("ayarlar.php");
 
 
     // Giriş yapmış kullanıcı kontrolü

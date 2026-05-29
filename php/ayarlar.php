@@ -1,4 +1,6 @@
 <?PHP
+
+	// oturum/session işlemleri için her sayfada tanımlanması gereken fonksiyonlar
 	ob_start();
 	session_start();
 
@@ -23,9 +25,10 @@
 	mysqli_query($mysqli ,"SET NAMES UTF8");
 
 
+	// Temel ayarları tanımlıyoruz
 	$siteurl = "http://localhost:3333";
 	$sitename = "Hastane Otomasyon"; //değiştirilebilir tanımalma
-	const _SiteName = "Hastane Otomasyon"; //değiştirilemez tanımlama
+	const _SiteAdi = "Hastane Otomasyon"; //değiştirilemez tanımlama
 	const _CopyRight = "2026";
 
 	$info_mail = "info@dilfuza.com";
@@ -42,10 +45,10 @@
 
 	//POST ile alınan verileri temizleyen fonksion
 	function p($data){
-		if(!isset($_POST[$data])){return false;}
-		$data = trim($_POST[$data]);
-		$data = strip_tags($data);
-		return $data;
+		if(!isset($_POST[$data])){return false;} //veri boşsa geri false döner
+		$data = trim($_POST[$data]); //verinin başındaki ve sonundai boşlukları temizler
+		$data = strip_tags($data); //verinin içindeki kod/komut olabilecek karakterleri bozar
+		return $data; //son veriyi geri gönder
 	}
 
 
