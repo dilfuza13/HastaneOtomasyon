@@ -261,7 +261,7 @@ $hasta = mysqli_fetch_assoc($mysqli->query("SELECT * FROM patient WHERE id='$has
 		<input type="text" name="title" placeholder="Dosya Adı" required>
 		<input type="file" name="file" required>
 		<button type="submit">YÜKLE</button>
-		<input type="hidden" name="islem" value="addfile">
+		<input type="hidden" name="islem" value="dosyayukle">
 		</form>
 
 		<hr>

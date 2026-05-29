@@ -39,7 +39,7 @@
 				<div class="col col-md-2">
 					<button type="submit" class="btn btn-success">EKLE</button>
 				</div>
-				<input type="hidden" name="islem" value="adduser">
+				<input type="hidden" name="islem" value="personelekle">
 
 			</div>
 			</form>
@@ -75,7 +75,7 @@
 						<td><button type="submit" class="btn btn-success">KAYDET</button></td>
 						<td><?=$rs['createdtime'];?></td>
 					</tr>
-					<input type="hidden" name="islem" value="edituser">
+					<input type="hidden" name="islem" value="personelduzenle">
 					<input type="hidden" name="id" value="<?=$rs['id'];?>">
 				</form>
 		<?PHP } ?>

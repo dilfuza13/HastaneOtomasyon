@@ -136,7 +136,7 @@ $policlin = mysqli_fetch_assoc($mysqli->query("select * from specialization wher
                 <label class="form-label small fw-bold text-muted">Cevap yaz</label>
                 <textarea name="message" required class="form-select" placeholder="Eklemek istediğiniz bir şey var mı?..."></textarea>
                 <button type="submit">KAYDET</button>
-                <input type="hidden" name="islem" value="addstory">
+                <input type="hidden" name="islem" value="mesajekle">
                  <input type="hidden" name="patient" value="<?=$patientid;?>">
                     <input type="hidden" name="request" value="<?=$requestid;?>">
                 </form>

@@ -14,6 +14,7 @@
 	$islem = p("islem");
 
 
+
 	if($islem == 'randevu_olustur'){
 		//echo 'geldi'; exit;
 		// Formdan gelen verileri alıyoruz
@@ -64,6 +65,7 @@
 	}
 
 
+
 	if($islem=='randevuiptalet'){
 		$randevu = p('randevu');
 
@@ -96,7 +98,7 @@
 
 
 
-	if($islem=="addstory"){
+	if($islem=="mesajekle"){
 		
 		$patient = p("patient");
 		$request = p("request");
@@ -122,7 +124,9 @@
 
 	}
 
-	if($islem=="addfile"){        
+
+
+	if($islem=="dosyayukle"){        
 		$title = p("title");
 		$file = $_FILES["file"];
 

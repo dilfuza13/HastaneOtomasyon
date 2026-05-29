@@ -8,7 +8,7 @@
 	$islem = p('islem');
 
 	// işlem yoksa hata veriyoruz
-	if(empty($islem)){
+	if($islem==""){
 		echo 'İşlem gelmedi, neden geldin ki?';
 		exit;
 	}
@@ -20,7 +20,7 @@
 		$description = p("description");
 
 		// zorunlu alanları kontrol ediyoruz
-		if(empty($specialization) || empty($description)){ $_SESSION['alert'] = "Zorunlu alanlar boş!"; header("Location: uzmanliklar.php"); exit; }
+		if($specialization=="" || $description==""){ $_SESSION['alert'] = "Zorunlu alanlar boş!"; header("Location: uzmanliklar.php"); exit; }
 
 		//bu isimde başka uzmanlık var mı check ediyoruz
 		$check = mysqli_fetch_assoc($mysqli->query("SELECT id FROM specialization WHERE specialization='$specialization'"));
@@ -43,6 +43,7 @@
 	}
 
 
+
 	// Uzmanlık düzenleme işlemi
 	if($islem=="uzmanlikduzenle"){
 
@@ -52,7 +53,7 @@
 		$status = p("status");
 
 		// önemli alanlar dolu mu kontrol ediyoruz
-		if(!is_numeric($id) || empty($specialization) || empty($description) || empty($status)){
+		if(!is_numeric($id) || $specialization=="" || $description=="" || $status==""){
 			echo "Bilgiler eksik veya hatalı!"; exit;
 		}
 
@@ -81,7 +82,7 @@
 		$phone = p('phone');
 
 		// gelen verilerden önemli olanları kontrol ediyoruz
-		if(empty($name) || empty($specialization)){ $_SESSION['alert'] = "Zorunlu alanlar boş!"; header("Location: doktorlar.php"); exit; }
+		if($name=="" || $specialization==""){ $_SESSION['alert'] = "Zorunlu alanlar boş!"; header("Location: doktorlar.php"); exit; }
 
 		//bu isimde başka doktor var mı check ediyoruz
 		$check = mysqli_fetch_assoc($mysqli->query("SELECT id FROM doctor WHERE name='$name'"));
@@ -133,7 +134,7 @@
 		$status			= p('status');
 
 		// önemli alanlar dolu mu kontrol ediyoruz
-		if(!is_numeric($id) || empty($name) || empty($specialization)){ $_SESSION['alert'] = "Doktor adı veya uzmanlığı boş olamaz!"; header("Location:doktorlar.php"); exit; }
+		if(!is_numeric($id) || $name=="" || $specialization==""){ $_SESSION['alert'] = "Doktor adı veya uzmanlığı boş olamaz!"; header("Location:doktorlar.php"); exit; }
 
 		// veri tabanında bilgileri update ediyoruz
 		$mysqli->query("UPDATE doctor SET name='$name', specialization='$specialization', description='$description', phone='$phone', status='$status' WHERE id='$id'");
@@ -176,6 +177,7 @@
 	}
 
 
+
 	// doktor profil fotoğrafını değiştirme işlemi
 	if($islem=="doktorprofilfotoduzenle"){
 		
@@ -211,9 +213,6 @@
 	}
 
 
-	
-
-
 
 	// doktor silme işlemi
 	if($islem=="doktorsil"){
@@ -235,7 +234,7 @@
 		$slotstatus = p('slotstatus');
 
 		// önemli alanlar dolu mu kontrol ediyoruz
-		if(!is_numeric($doctor) || empty($timeslot)) { $_SESSION['alert'] = "Bilgiler eksik veya hatalı!"; header("Location:slotlar.php?doctor=$doctor"); exit; }
+		if(!is_numeric($doctor) || $timeslot=="") { $_SESSION['alert'] = "Bilgiler eksik veya hatalı!"; header("Location:slotlar.php?doctor=$doctor"); exit; }
 
 		// veritabanında o tarihlere slot var mı bakıyoruz
 		$slot = mysqli_fetch_assoc($mysqli->query("select id, status from timeslot where doctor='$doctor' and timeslot='$timeslot'"));
@@ -287,7 +286,7 @@
 		$phone = p('phone');
 		$birthyear = p('birthyear');
 
-		if(!is_numeric($id) || empty($tckno) || empty($name) || empty($email) || empty($phone) || empty($birthyear)) {
+		if(!is_numeric($id) || $tckno=="" || $name=="" || $email=="" || $phone=="" || $birthyear=="") {
 			$_SESSION['alert'] = "Bilgiler eksik veya hatalı!"; header("Location: hasta.php?id=$id");
 			exit;
 		}
@@ -307,12 +306,18 @@
 
 
 
+	// hastanın talebine cevap veriyoruz
+	if($islem=='mesajekle'){
 
-	if($islem=='addmessage'){
 		$requestid	= p('request');
 		$message	= p('message');
 		$sender		= '2'; // Doktor
 		$status		= '0'; // Yeni
+
+		if(!is_numeric($requestid) || $message == "") {
+			echo "bilgiler eksik veya hatalı";
+			exit;
+		}
 
 		$result = $mysqli->query("INSERT INTO request_answers (request, sender, message, status) VALUES ('$requestid', '$sender', '$message', '$status')");
 
@@ -329,16 +334,70 @@
 
 
 
-
-
-	// --- PERSONEL EKLE/DÜZENLE ---
-	if($islem=='adduser'){
+	// yeni personel ekliyoruz
+	if($islem=='personelekle'){
 		$name = p('name');
 		$username = p('username');
 		$password = p('password');
-		$result = $mysqli->query("INSERT INTO user (name, username, password, status) VALUES ('$name', '$username', '$password', '1')");
-		if($result) { $_SESSION['alert'] = "Personel eklendi"; header("Location:personel.php"); exit; }
+
+		if($name == "" || $username == "" || $password == ""){
+			echo "bilgiler eksik veya hatalı";
+			exit;
+		}
+
+		$check = mysqli_fetch_assoc($mysqli->query("SELECT id FROM user WHERE username='$username'"));
+		if($check){
+			echo "Kullanıcı adı zaten mevcut!";
+			exit;
+		}
+
+		$ekle = $mysqli->query("INSERT INTO user (name, username, password, status) VALUES ('$name', '$username', '$password', '1')");
+		if(!$ekle) {
+			echo "Personel eklenirken hata oluştu!".$mysqli->error;
+			exit;
+		}
+
+		$_SESSION['alert'] = "Personel eklendi";
+		header("Location:personel.php"); 
+		exit; 
+		
 	}
+
+
+
+	// personel duzenle
+	if($islem=='personelduzenle'){
+		$id = p('id');
+		$name = p('name');
+		$username = p('username');
+		$status = p('status');
+
+		if($name == "" || $username == "" || $status == ""){
+			echo "bilgiler eksik veya hatalı";
+			exit;
+		}
+
+		$check = mysqli_fetch_assoc($mysqli->query("SELECT id FROM user WHERE username='$username' and id!=$id"));
+		if($check){
+			echo "Kullanıcı adı zaten mevcut!";
+			exit;
+		}
+
+		$mysqli->query("UPDATE user SET name='$name', username='$username', status='$status' WHERE id='$id'");
+		
+		// personel güncellenmediyse hata yazdırıyoruz
+		if ($mysqli->affected_rows <= 0) {
+			echo "Personel düzenlenirken hata oluştu!";
+			exit;
+		}
+
+		$_SESSION['alert'] = "Personel düzenlendi";
+		header("Location:personel.php"); 
+		exit; 
+		
+	}
+
+
 
 	// --- DOKTOR EKLEME (Fotoğraflı) ---
 	if($islem=='doktorekle'){
@@ -355,19 +414,15 @@
 				VALUES ('$name', '$specialization', '$description', '$phone', '$profilephoto', '1')";
 		
 		if($mysqli->query($sql)){
+
 			$_SESSION['alert'] = "Doktor <b>$name</b> başarıyla eklendi.";
 			header("Location:doktorlar.php");
+
 		} else {
 			echo "Hata: " . $mysqli->error;
 		}
 		exit;
 	}
-
-
-
-
-
-
 
 
 
@@ -380,7 +435,7 @@
 
 
 		// bilgileri kontrol ediyoruz
-		if(!is_numeric($patient) || empty($test)){
+		if(!is_numeric($patient) || $test==""){
 			echo "Bilgiler eksik veya hatalı!";
 			exit;
 		}
@@ -399,6 +454,7 @@
 		header("Location: hasta.php?id=$patient");
 		exit;
 	}
+
 
 
 	if($islem=="testsonucugir"){
@@ -431,6 +487,7 @@
 
 
 
+	// tahlil-test silme
 	if($islem=="testsil"){
 		$id = p('id');
 		$patient= p('patient');
@@ -454,13 +511,14 @@
 	}
 
 
+
 	// hasta ekranına dosya yüklüyoruz
 	if($islem=="dosyayukle"){
 		$patient = p("patient");
 		$title = p("title");
 		$file = $_FILES["file"];
 
-		if(!is_numeric($patient) || empty($title) || $file==""){echo "eksik veri"; exit;}
+		if(!is_numeric($patient) || $title=="" || $file==""){echo "eksik veri"; exit;}
 
 		// hasta var mı kontrol ediyoruz
 		$hasta = mysqli_fetch_assoc($mysqli->query("SELECT id FROM patient WHERE id='$patient'"));
