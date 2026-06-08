@@ -113,6 +113,8 @@
 								</button>
 							</div>
 						</div>
+						<input type="hidden" name="islem" value="doktorduzenle">
+						<input type="hidden" name="id" value="<?=$doctor['id'];?>">
 					</form>
 				</div>
 			</div>
