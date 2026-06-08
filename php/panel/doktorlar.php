@@ -95,24 +95,16 @@ require_once("../ayarlar.php");
         $resim_sayisi = count($hastane_resimleri);
 
         $sorgu = $mysqli->query("SELECT d.*, s.specialization as uzmanlik FROM doctor d LEFT JOIN specialization s ON d.specialization = s.id ORDER BY d.id DESC");
-        $i = 0;
+
         while($row = $sorgu->fetch_assoc()){
-            // Ön yüz ile simetrik resim kontrolü
-            if (!empty($row['image']) && file_exists("../uploads/".$row['image'])) {
-                $resim = "../uploads/".$row['image']."?v=".time();
-            } elseif ($resim_sayisi > 0) {
-                $resim = $hastane_resimleri[$i % $resim_sayisi];
-            } else {
-                $resim = "https://via.placeholder.com/100";
-            }
-            $i++;
+
         ?>
         <div class="doctor-row shadow-sm">
             <form action="islemler.php" method="POST" class="d-flex align-items-center w-100 gap-3">
                 <input type="hidden" name="id" value="<?=$row['id'];?>">
                 
                 <!-- Doktor Profil Resmi -->
-                <img src="<?=$resim;?>" class="img-circle" alt="Doktor">
+                <img src="../uploads/<?=$row['profilephoto']??"placeholder.png";?>" class="img-circle" alt="Doktor">
                 
                 <!-- Doktor Adı Soyadı (Düzenlenebilir input haline getirildi) -->
                 <div style="flex: 1.5;">

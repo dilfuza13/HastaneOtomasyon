@@ -73,22 +73,14 @@
                 WHERE d.status = 1
                 ORDER BY d.id DESC limit 6";
     
-    $sorgu = $mysqli->query($query);
-    $i = 0; // Sıralı resim seçimi için sayaç
-    
+    $sorgu = $mysqli->query($query);    
+
     while($row = $sorgu->fetch_assoc()){
-        // 2. ADIM: Doğrudan klasördeki sıralı resmi atayalım
-        if ($resim_sayisi > 0) {
-            $resim_yolu = $hastane_resimleri[$i % $resim_sayisi];
-        } else {
-            // Eğer klasörde hiç resim kalmazsa hata vermemesi için yedek görsel
-            $resim_yolu = "https://via.placeholder.com/400x500";
-        }
-        $i++;
+
     ?>
     <div class="col-lg-4 col-md-6 text-center">
       <div class="card doctor-card shadow-sm">
-        <div class="doctor-img"><img src="<?=$resim_yolu;?>"></div>
+        <div class="doctor-img"><img src="uploads/<?=$row['profilephoto']??"placeholder.png";?>"></div>
         <div class="card-body p-4">
           <span class="spec-badge"><?=htmlspecialchars($row['uzmanlik']);?></span>
           <h4 class="fw-bold mb-3">Dr. <?=htmlspecialchars($row['name']);?></h4>
